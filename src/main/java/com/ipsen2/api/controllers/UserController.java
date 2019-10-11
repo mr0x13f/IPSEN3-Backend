@@ -3,30 +3,30 @@ package com.ipsen2.api.controllers;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
+@Path("/user")
 public class UserController {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/user")
-    public void GETUser() {
-
+    public String GETUser() {
+        return "{'message': 'not implemented :('}".replace("'","\"");
     }
 
     @POST
-    @Path("/user")
-    public void POSTUser() {
-
+    @Produces(MediaType.APPLICATION_JSON)
+    public String POSTUser() {
+        return "{'message': 'not implemented :('}".replace("'","\"");
     }
 
     @PUT
-    @Path("/user")
-    public void PUTUser() {
-
+    @Produces(MediaType.APPLICATION_JSON)
+    public String PUTUser() {
+        return "{'message': 'not implemented :('}".replace("'","\"");
     }
 
     @DELETE
-    @Path("/user")
-    public void DELETEUser() {
-
+    @Produces(MediaType.APPLICATION_JSON)
+    public String DELETEUser() {
+        return "{'message': 'not implemented :('}".replace("'","\"");
     }
 }

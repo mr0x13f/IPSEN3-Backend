@@ -3,30 +3,30 @@ package com.ipsen2.api.controllers;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
+@Path("/rate")
 public class RateController {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/rate")
-    public void GETRate() {
-
+    public String GETRate() {
+        return "{'message': 'not implemented :('}".replace("'","\"");
     }
 
     @POST
-    @Path("/rate")
-    public void POSTRate() {
-
+    @Produces(MediaType.APPLICATION_JSON)
+    public String POSTRate() {
+        return "{'message': 'not implemented :('}".replace("'","\"");
     }
 
     @PUT
-    @Path("/rate")
-    public void PUTRate() {
-
+    @Produces(MediaType.APPLICATION_JSON)
+    public String PUTRate() {
+        return "{'message': 'not implemented :('}".replace("'","\"");
     }
 
     @DELETE
-    @Path("/rate")
-    public void DELETERate() {
-
+    @Produces(MediaType.APPLICATION_JSON)
+    public String DELETERate() {
+        return "{'message': 'not implemented :('}".replace("'","\"");
     }
 }

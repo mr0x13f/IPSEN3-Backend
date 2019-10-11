@@ -3,30 +3,30 @@ package com.ipsen2.api.controllers;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
+@Path("/vehicle")
 public class VehicleController {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/vehicle")
-    public void GETVehicle() {
-
+    public String GETVehicle() {
+        return "{'message': 'not implemented :('}".replace("'","\"");
     }
 
     @POST
-    @Path("/vehicle")
-    public void POSTVehicle(){
-
+    @Produces(MediaType.APPLICATION_JSON)
+    public String POSTVehicle(){
+        return "{'message': 'not implemented :('}".replace("'","\"");
     }
 
     @PUT
-    @Path("/vehicle")
-    public void PUTVehicle() {
-
+    @Produces(MediaType.APPLICATION_JSON)
+    public String PUTVehicle() {
+        return "{'message': 'not implemented :('}".replace("'","\"");
     }
 
     @DELETE
-    @Path("/vehicle")
-    public void DELETEVehicle() {
-
+    @Produces(MediaType.APPLICATION_JSON)
+    public String DELETEVehicle() {
+        return "{'message': 'not implemented :('}".replace("'","\"");
     }
 }

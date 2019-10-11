@@ -12,5 +12,6 @@ public class Journey {
     private double parkingCost;
     private double otherCost;
     private int creatorId;
+    private boolean isBilled;
 
 }

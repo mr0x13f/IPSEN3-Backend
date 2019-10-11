@@ -3,30 +3,30 @@ package com.ipsen2.api.controllers;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
+@Path("/project")
 public class ProjectController {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/project")
-    public void GETProject() {
-
+    public String GETProject() {
+        return "{'message': 'not implemented :('}".replace("'","\"");
     }
 
     @POST
-    @Path("/project")
-    public void POSTProject() {
-
+    @Produces(MediaType.APPLICATION_JSON)
+    public String POSTProject() {
+        return "{'message': 'not implemented :('}".replace("'","\"");
     }
 
     @PUT
-    @Path("/project")
-    public void PUTProject() {
-
+    @Produces(MediaType.APPLICATION_JSON)
+    public String PUTProject() {
+        return "{'message': 'not implemented :('}".replace("'","\"");
     }
 
     @DELETE
-    @Path("/project")
-    public void DELETEProject() {
-
+    @Produces(MediaType.APPLICATION_JSON)
+    public String DELETEProject() {
+        return "{'message': 'not implemented :('}".replace("'","\"");
     }
 }

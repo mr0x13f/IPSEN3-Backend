@@ -4,30 +4,30 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.awt.*;
 
+@Path("/journey")
 public class JourneyController {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/journey")
-    public void GETJourney() {
-
+    public String GETJourney() {
+        return "{'message': 'not implemented :('}".replace("'","\"");
     }
 
     @POST
-    @Path("/journey")
-    public void POSTJourney() {
-
+    @Produces(MediaType.APPLICATION_JSON)
+    public String POSTJourney() {
+        return "{'message': 'not implemented :('}".replace("'","\"");
     }
 
     @PUT
-    @Path("/journey")
-    public void PUTJourney() {
-
+    @Produces(MediaType.APPLICATION_JSON)
+    public String PUTJourney() {
+        return "{'message': 'not implemented :('}".replace("'","\"");
     }
 
     @DELETE
-    @Path("/journey")
-    public void DELETEJourney() {
-        
+    @Produces(MediaType.APPLICATION_JSON)
+    public String DELETEJourney() {
+        return "{'message': 'not implemented :('}".replace("'","\"");
     }
 }
