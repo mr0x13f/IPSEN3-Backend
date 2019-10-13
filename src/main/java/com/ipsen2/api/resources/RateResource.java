@@ -1,10 +1,10 @@
-package com.ipsen2.api.controllers;
+package com.ipsen2.api.resources;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
 @Path("/rate")
-public class RateController {
+public class RateResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)

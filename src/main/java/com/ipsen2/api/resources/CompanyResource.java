@@ -1,7 +1,5 @@
-package com.ipsen2.api.controllers;
+package com.ipsen2.api.resources;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ipsen2.api.APIResponse;
 import com.ipsen2.api.models.Company;
 
@@ -9,7 +7,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
 @Path("/company")
-public class CompanyController {
+public class CompanyResource {
 
     public Company model;
 
@@ -22,7 +20,7 @@ public class CompanyController {
      * @version 11/10/2019
      * @author Tim W
      */
-    public CompanyController() {
+    public CompanyResource() {
         this.model = new Company();
     }
 
@@ -33,7 +31,7 @@ public class CompanyController {
      * @version 11/10/2019
      * @author Tim W
      */
-    public CompanyController(Company model) {
+    public CompanyResource(Company model) {
         this.model = model;
     }
 

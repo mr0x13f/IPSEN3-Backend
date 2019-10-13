@@ -1,10 +1,10 @@
-package com.ipsen2.api.controllers;
+package com.ipsen2.api.resources;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
 @Path("/project")
-public class ProjectController {
+public class ProjectResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)

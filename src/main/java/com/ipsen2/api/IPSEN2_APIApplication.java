@@ -1,7 +1,6 @@
 package com.ipsen2.api;
 
-import com.ipsen2.api.controllers.*;
-import com.ipsen2.api.models.Journey;
+import com.ipsen2.api.resources.*;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
@@ -27,20 +26,20 @@ public class IPSEN2_APIApplication extends Application<IPSEN2_APIConfiguration> 
                     final Environment environment) {
 
         // Registreer de controllers zodat DropWizard weet welke klasse de API calls verwerken
-        // We gebruiken een bulkRegister() zodat we niet knikker vaak environment.jersey().register() hoeven te callen
+        // We gebruiken een bulkRegister() zodat we niet knikker vaak environment.jersey().register() hoeven te callen.
         bulkRegister(environment,
                 new DebugAPIResource(), // TODO: Comment out in production!! ヽ(⁎˃ᆺ˂)ﾉ
-                new CompanyController(),
-                new JourneyController(),
-                new ProjectController(),
-                new RateController(),
-                new UserController(),
-                new VehicleController()
+                new CompanyResource(),
+                new JourneyResource(),
+                new ProjectResource(),
+                new RateResource(),
+                new UserResource(),
+                new VehicleResource()
         );
 
     }
 
-    /** Register API resources in bulk
+    /** Register API resources in bulk.
      *
      * @param environment The DropWizard environment to register the resources to
      * @param resources The resources to register
