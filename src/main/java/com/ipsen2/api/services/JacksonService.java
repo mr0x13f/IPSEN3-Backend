@@ -7,31 +7,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * Service mainly for converting objects to JSON.
  *
  * @author TimvHal
+ * @version 14/10/2019
  */
 public class JacksonService {
 
-    private static JacksonService jService;
-    private ObjectMapper mapper;
+    private static ObjectMapper mapper;
 
-    static {
-        jService = new JacksonService();
-    }
-
-    private JacksonService() {
-
-    }
-
-    public static JacksonService getInstance() {
-        return jService;
-    }
-
-    public String writeValueAsString(Object o) {
+    public static String writeValueAsString(Object o) throws JsonProcessingException {
         String jsonString = "";
-        try {
-            jsonString = mapper.writeValueAsString(o);
-        } catch (JsonProcessingException e) { //Dat gaat fout pannenkoek.
-            e.printStackTrace();
-        }
+        jsonString = mapper.writeValueAsString(o);
         return jsonString;
     }
 

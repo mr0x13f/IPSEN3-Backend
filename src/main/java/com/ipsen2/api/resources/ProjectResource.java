@@ -1,5 +1,8 @@
 package com.ipsen2.api.resources;
 
+import com.ipsen2.api.APIResponse;
+import com.ipsen2.api.services.ProjectService;
+
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
@@ -9,7 +12,8 @@ public class ProjectResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public String GETProject() {
-        return "{'message': 'not implemented :('}".replace("'","\"");
+        APIResponse response = new APIResponse(ProjectService.GETProjectData());
+        return response.serialize();
     }
 
     @POST

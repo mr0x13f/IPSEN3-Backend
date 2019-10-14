@@ -2,6 +2,8 @@ package com.ipsen2.api;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ipsen2.api.services.JacksonService;
+import io.dropwizard.jackson.Jackson;
 
 /*
 
@@ -18,8 +20,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 /** API response that will be serialized to JSON and sent to the client.
  *
- * @author Tim W
- * @version 11/10/2019
+ * @author Tim W, TimvHal
+ * @version 14/10/2019
  */
 public class APIResponse {
 
@@ -75,12 +77,10 @@ public class APIResponse {
      * @version 11/10/2019
      */
     public String serialize() {
-
-        ObjectMapper mapper = new ObjectMapper();
         String json;
 
         try {
-            json = mapper.writeValueAsString(this);
+            json = JacksonService.writeValueAsString(this);
         }
         catch (com.fasterxml.jackson.core.JsonProcessingException e) { // Er is iets heel erg fout gegaan
             json = "{'success':false, 'code':101, 'message':'Internal server error: JsonProcessingException in response.serialize()', 'data':[]}".replace("'","\"");

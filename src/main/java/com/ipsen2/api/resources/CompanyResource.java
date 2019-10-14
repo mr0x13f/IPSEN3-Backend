@@ -1,7 +1,7 @@
 package com.ipsen2.api.resources;
 
 import com.ipsen2.api.APIResponse;
-import com.ipsen2.api.models.Company;
+import com.ipsen2.api.services.CompanyService;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -9,53 +9,11 @@ import javax.ws.rs.core.MediaType;
 @Path("/company")
 public class CompanyResource {
 
-    public Company model;
-
-    ///////////////////////////////////////////////////////////////////////////////////////////////
-    //                                         CONSTRUCTORS
-    ///////////////////////////////////////////////////////////////////////////////////////////////
-
-    /** Create controller with <b>new</b> model.
-     *
-     * @version 11/10/2019
-     * @author Tim W
-     */
-    public CompanyResource() {
-        this.model = new Company();
-    }
-
-    /** Create controller with <b>existing</b> model.
-     *
-     * @param model The model to control.
-     *
-     * @version 11/10/2019
-     * @author Tim W
-     */
-    public CompanyResource(Company model) {
-        this.model = model;
-    }
-
-    ///////////////////////////////////////////////////////////////////////////////////////////////
-    //                                         METHODS
-    ///////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-    ///////////////////////////////////////////////////////////////////////////////////////////////
-    //                                         REST
-    ///////////////////////////////////////////////////////////////////////////////////////////////
-
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public static String GETCompany () {
-        APIResponse response = new APIResponse(1, "Not implemented");
+        APIResponse response = new APIResponse(CompanyService.GETCompanyData());
         return response.serialize();
-
-        /*
-
-        APIResponse response = new APIResponse(this.model)
-
-         */
     }
 
     @POST

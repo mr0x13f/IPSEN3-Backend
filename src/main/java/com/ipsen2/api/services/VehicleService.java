@@ -8,22 +8,8 @@ import com.ipsen2.api.models.Vehicle;
  */
 public class VehicleService {
 
-    private static VehicleService vService;
-
-    static {
-        vService = new VehicleService();
-    }
-
-    private VehicleService() {
-
-    }
-
-    public static VehicleService getInstance() {
-        return vService;
-    }
-
-    public Vehicle GETVehicleData() {
-        //TODO implement SQL-method in models layer to get JSON.
+    public static Vehicle GETVehicleData() {
+        //TODO implement SQL-method in DAO layer to get JSON.
         Vehicle vehicle = new Vehicle("1", "1");
         return vehicle;
     }

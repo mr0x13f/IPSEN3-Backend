@@ -1,9 +1,7 @@
 package com.ipsen2.api.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonRootName;
 
-@JsonRootName("vehicle")
 public class Vehicle {
 
     @JsonProperty("licenseplate")

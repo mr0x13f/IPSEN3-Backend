@@ -1,9 +1,7 @@
 package com.ipsen2.api.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonRootName;
 
-@JsonRootName("company")
 public class Company {
 
     @JsonProperty("companyId")
@@ -11,4 +9,8 @@ public class Company {
     @JsonProperty("name")
     private String name;
 
+    public Company(int id, String name) {
+        this.companyId = id;
+        this.name = name;
+    }
 }
