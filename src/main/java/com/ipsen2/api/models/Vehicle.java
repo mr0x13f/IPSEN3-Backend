@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Vehicle {
 
-    @JsonProperty("licenseplate")
+    @JsonProperty("licensePlate")
     private String licensePlate;
     @JsonProperty("description")
     private String description;

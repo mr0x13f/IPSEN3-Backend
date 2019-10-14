@@ -100,7 +100,7 @@ public class APIResponse {
         String json;
 
         try {
-            json = JacksonService.writeValueAsString(this);
+            json = JacksonService.writeValueAsString(this.data);
         }
         catch (com.fasterxml.jackson.core.JsonProcessingException e) { // Er is iets heel erg fout gegaan
             json = "{'success':false, 'code':101, 'message':'Internal server error: JsonProcessingException in response.serialize()', 'data':[]}".replace("'","\"");
