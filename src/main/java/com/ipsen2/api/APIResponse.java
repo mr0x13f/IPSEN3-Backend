@@ -93,8 +93,8 @@ public class APIResponse {
      *
      * @return The JSON string based on the response object.
      *
-     * @author Tim W
-     * @version 11/10/2019
+     * @author Tim W, TimvHal
+     * @version 14/10/2019
      */
     public String serialize() {
         String json;
