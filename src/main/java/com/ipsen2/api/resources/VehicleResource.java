@@ -11,26 +11,26 @@ public class VehicleResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public String GETVehicle() {
-        APIResponse response = new APIResponse(VehicleService.GETVehicleData());
+    public String GETVehicles() {
+        APIResponse response = new APIResponse(VehicleService.GETVehicleList());
         return response.serialize();
     }
 
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    public String POSTVehicle(){
+    public String POSTVehicles(){
         return "{'message': 'not implemented :('}".replace("'","\"");
     }
 
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
-    public String PUTVehicle() {
+    public String PUTVehicles() {
         return "{'message': 'not implemented :('}".replace("'","\"");
     }
 
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
-    public String DELETEVehicle() {
+    public String DELETEVehicles() {
         return "{'message': 'not implemented :('}".replace("'","\"");
     }
 }
