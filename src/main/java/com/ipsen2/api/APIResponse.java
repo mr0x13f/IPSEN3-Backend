@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ipsen2.api.services.JacksonService;
 import io.dropwizard.jackson.Jackson;
 
+import java.util.ArrayList;
+
 /*
 
     ERROR CODES:
@@ -32,17 +34,35 @@ public class APIResponse {
     @JsonProperty("message")
     public String message;
     @JsonProperty("data")
-    public Object[] data;
+    public ArrayList<Object> data;
+
+    /** Create API response.
+     * The 'success' field will be set to <b>true</b>.
+     *
+     * @param obj The object to serialize.
+     *
+     * @author Tim W, TimvHal
+     * @version 14/10/2019
+     */
+    public APIResponse(Object obj) {
+
+        this.success = true;
+        this.code = 0;
+        this.message = "OK";
+        this.data = new ArrayList<>();
+        this.data.add(obj);
+
+    }
 
     /** Create API response.
      * The 'success' field will be set to <b>true</b>.
      *
      * @param data The objects to serialize.
      *
-     * @author Tim W
-     * @version 11/10/2019
+     * @author Tim W, TimvHal
+     * @version 14/10/2019
      */
-    public APIResponse(Object ... data) {
+    public APIResponse(ArrayList<Object> data) {
 
         this.success = true;
         this.code = 0;
@@ -65,7 +85,7 @@ public class APIResponse {
         this.success = false;
         this.code = code;
         this.message = message;
-        this.data = new Object[0];
+        this.data = new ArrayList<>();
 
     }
 
