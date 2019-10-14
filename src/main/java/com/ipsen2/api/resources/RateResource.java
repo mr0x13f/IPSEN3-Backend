@@ -6,13 +6,20 @@ import com.ipsen2.api.services.RateService;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
+/**
+ * Resource class for checking requests revolving rates.
+ *
+ * @author TimvHal, Tim W
+ * @version 14/10/2019
+ */
 @Path("/rate")
 public class RateResource {
 
     @GET
+    @Path("/get/all")
     @Produces(MediaType.APPLICATION_JSON)
     public String GETRate() {
-        APIResponse response = new APIResponse(RateService.GETRateData());
+        APIResponse response = new APIResponse(RateService.GETRateList());
         return response.serialize();
     }
 

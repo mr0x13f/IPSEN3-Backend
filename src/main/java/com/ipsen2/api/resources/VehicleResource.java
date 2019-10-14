@@ -6,10 +6,17 @@ import com.ipsen2.api.services.VehicleService;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
+/**
+ * Resource class for checking requests revolving vehicles.
+ *
+ * @author TimvHal, Tim W
+ * @version 14/10/2019
+ */
 @Path("/vehicle")
 public class VehicleResource {
 
     @GET
+    @Path("/get/all")
     @Produces(MediaType.APPLICATION_JSON)
     public String GETVehicles() {
         APIResponse response = new APIResponse(VehicleService.GETVehicleList());
