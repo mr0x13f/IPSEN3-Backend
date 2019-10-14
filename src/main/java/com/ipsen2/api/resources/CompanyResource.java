@@ -6,13 +6,20 @@ import com.ipsen2.api.services.CompanyService;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
+/**
+ * Resource class for handling requests revolving companies.
+ *
+ * @author TimvHal, Tim W
+ * @version 14/10/2019
+ */
 @Path("/company")
 public class CompanyResource {
 
     @GET
+    @Path("/get/all")
     @Produces(MediaType.APPLICATION_JSON)
     public static String GETCompany () {
-        APIResponse response = new APIResponse(CompanyService.GETCompanyData());
+        APIResponse response = new APIResponse(CompanyService.GETCompanyList());
         return response.serialize();
     }
 

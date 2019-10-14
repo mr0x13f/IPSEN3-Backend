@@ -6,6 +6,12 @@ import com.ipsen2.api.services.DatabaseService;
 import java.sql.*;
 import java.util.ArrayList;
 
+/**
+ * Class for interacting with database revolving Vehicles.
+ *
+ * @author TimvHal
+ * @version 14/10/2019
+ */
 public class VehicleDAO {
 
     public static ArrayList<Vehicle> GETVehicleData() {

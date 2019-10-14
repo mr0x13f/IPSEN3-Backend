@@ -1,17 +1,19 @@
 package com.ipsen2.api.services;
 
+import com.ipsen2.api.dao.UserDAO;
 import com.ipsen2.api.models.User;
+
+import java.util.ArrayList;
 
 /**
  * Service for handling and completing requests revolving users.
  *
  * @author TimvHal
+ * @version 14/10/2019
  */
 public class UserService {
 
-    public static User GETUserData() {
-        //TODO use DAO method.
-        User user = new User("1", "1", "1");
-        return user;
+    public static ArrayList<User> GETUserList() {
+        return UserDAO.GETUserData();
     }
 }

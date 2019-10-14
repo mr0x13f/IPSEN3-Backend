@@ -6,13 +6,20 @@ import com.ipsen2.api.services.ProjectService;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
+/**
+ * Resource class for checking requests revolving projects.
+ *
+ * @author TimvHal, Tim W
+ * @version 14/10/2019
+ */
 @Path("/project")
 public class ProjectResource {
 
     @GET
+    @Path("/get/all")
     @Produces(MediaType.APPLICATION_JSON)
     public String GETProject() {
-        APIResponse response = new APIResponse(ProjectService.GETProjectData());
+        APIResponse response = new APIResponse(ProjectService.GETProjectList());
         return response.serialize();
     }
 
