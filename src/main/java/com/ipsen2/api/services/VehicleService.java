@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * Service for handling and completing requests revolving companies.
  *
  * @author TimvHal
- * @version 14/10/2019
+ * @version 16/10/2019
  */
 public class VehicleService {
 
@@ -16,5 +16,7 @@ public class VehicleService {
         return VehicleDAO.GETVehicleData();
     }
 
-
+    public static String POSTVehicle(ArrayList<Object> vList) {
+        return VehicleDAO.POSTVehicle(vList);
+    }
 }

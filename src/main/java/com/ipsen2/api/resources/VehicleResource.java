@@ -1,22 +1,25 @@
 package com.ipsen2.api.resources;
 
 import com.ipsen2.api.APIResponse;
+import com.ipsen2.api.models.Vehicle;
+import com.ipsen2.api.services.JacksonService;
 import com.ipsen2.api.services.VehicleService;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.ArrayList;
 
 /**
  * Resource class for checking requests revolving vehicles.
  *
  * @author TimvHal, Tim W
- * @version 14/10/2019
+ * @version 16/10/2019
  */
 @Path("/vehicle")
 public class VehicleResource {
 
     @GET
-    @Path("/get/all")
+    @Path("/all")
     @Produces(MediaType.APPLICATION_JSON)
     public String GETVehicles() {
         APIResponse response = new APIResponse(VehicleService.GETVehicleList());
@@ -25,8 +28,12 @@ public class VehicleResource {
 
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    public String POSTVehicles(){
-        return "{'message': 'not implemented :('}".replace("'","\"");
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String POSTVehicle(String vehicleData){
+        ArrayList<Object> vList = JacksonService.readValue(vehicleData, Vehicle.class);
+        APIResponse response = new APIResponse(VehicleService.POSTVehicle(vList));
+        return response.serialize();
+        //return "{'message': 'not implemented :('}".replace("'","\"");
     }
 
     @PUT

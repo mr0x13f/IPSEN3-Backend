@@ -2,6 +2,7 @@ package com.ipsen2.api.dao;
 
 import com.ipsen2.api.models.Vehicle;
 import com.ipsen2.api.services.DatabaseService;
+import com.ipsen2.api.services.JacksonService;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -10,7 +11,7 @@ import java.util.ArrayList;
  * Class for interacting with database revolving Vehicles.
  *
  * @author TimvHal
- * @version 14/10/2019
+ * @version 16/10/2019
  */
 public class VehicleDAO {
 
@@ -30,4 +31,12 @@ public class VehicleDAO {
         return vehicleList;
     }
 
+    public static String POSTVehicle(ArrayList<Object> vList) {
+        for(Object o : vList) {
+            Vehicle v = (Vehicle) o;
+            PreparedStatement ps = DatabaseService.prepareQuery("INSERT INTO vehicles VALUES(" + v.getLicensePlate() + ", " + v.getDescription() + ")");
+            DatabaseService.executeQuery(ps);
+        }
+        return "200 OK";
+    }
 }

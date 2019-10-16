@@ -6,6 +6,7 @@ import com.ipsen2.api.services.JacksonService;
 import io.dropwizard.jackson.Jackson;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /*
 
@@ -74,17 +75,23 @@ public class APIResponse {
     /** Create error response.
      * The 'success' field will be set to <b>false</b>.
      *
-     * @param code The error code.
-     * @param code The error message.
+     * @param response is String-object split into an error code and message.
      *
-     * @author Tim W
-     * @version 11/10/2019
+     * @author Tim W, TimvHal
+     * @version 14/10/2019
      */
-    public APIResponse(int code, String message) {
+    public APIResponse(String response) {
+        ArrayList<String> responseSplit = new ArrayList<>(Arrays.asList(response.split(" ")));
+        int errorCode = Integer.parseInt(responseSplit.get(0));
+        responseSplit.remove(0);
+        String errorMessage = "";
+        for(String messagePart : responseSplit) {
+                errorMessage += messagePart;
+        }
 
         this.success = false;
-        this.code = code;
-        this.message = message;
+        this.code = errorCode;
+        this.message = errorMessage;
         this.data = new ArrayList<>();
 
     }
@@ -94,18 +101,9 @@ public class APIResponse {
      * @return The JSON string based on the response object.
      *
      * @author Tim W, TimvHal
-     * @version 14/10/2019
+     * @version 16/10/2019
      */
     public String serialize() {
-        String json;
-
-        try {
-            json = JacksonService.writeValueAsString(this.data);
-        }
-        catch (com.fasterxml.jackson.core.JsonProcessingException e) { // Er is iets heel erg fout gegaan
-            json = "{'success':false, 'code':101, 'message':'Internal server error: JsonProcessingException in response.serialize()', 'data':[]}".replace("'","\"");
-        }
-
-        return json;
+        return JacksonService.writeValueAsString(this.data);
     }
 }
