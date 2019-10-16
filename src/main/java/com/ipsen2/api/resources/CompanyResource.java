@@ -26,21 +26,21 @@ public class CompanyResource {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     public static String POSTCompany () {
-        APIResponse response = new APIResponse(1, "Not implemented");
+        APIResponse response = new APIResponse("1 Not implemented");
         return response.serialize();
     }
 
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
     public static String PUTCompany () {
-        APIResponse response = new APIResponse(1, "Not implemented");
+        APIResponse response = new APIResponse("1 Not implemented");
         return response.serialize();
     }
 
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
     public static String DELETECompany () {
-        APIResponse response = new APIResponse(1, "Not implemented");
+        APIResponse response = new APIResponse("1 Not implemented");
         return response.serialize();
     }
 
