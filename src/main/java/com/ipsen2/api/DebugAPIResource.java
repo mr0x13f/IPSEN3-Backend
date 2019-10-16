@@ -18,7 +18,7 @@ public class DebugAPIResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public String GETDebug() {
-        APIResponse response = new APIResponse(1, "1");
+        APIResponse response = new APIResponse("1 1");
         return response.serialize();
     }
 
