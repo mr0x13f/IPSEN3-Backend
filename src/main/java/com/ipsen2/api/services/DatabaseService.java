@@ -12,7 +12,7 @@ public class DatabaseService {
     private static Connection con;
     {
         try {
-            con = DriverManager.getConnection("83.86.21.169", "API", "fyNY7cMuB5VGVf9FfxP6");
+            con = DriverManager.getConnection("83.86.21.169:5432", "API", "fyNY7cMuB5VGVf9FfxP6");
         } catch (SQLException e) {
             e.printStackTrace();
         }
