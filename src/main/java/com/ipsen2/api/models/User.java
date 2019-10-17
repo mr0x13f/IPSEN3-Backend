@@ -25,4 +25,20 @@ public class User {
         this.password = password;
         this.name = name;
     }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getName() {
+        return name;
+    }
 }

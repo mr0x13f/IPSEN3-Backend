@@ -16,4 +16,8 @@ public class UserService {
     public static ArrayList<User> GETUserList() {
         return UserDAO.GETUserData();
     }
+
+    public static String POSTUser(ArrayList<Object> uList) {
+        return UserDAO.POSTUser(uList);
+    }
 }
