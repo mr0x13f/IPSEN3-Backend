@@ -1,6 +1,7 @@
 package com.ipsen2.api.dao;
 
 import com.ipsen2.api.models.User;
+import com.ipsen2.api.models.Vehicle;
 import com.ipsen2.api.services.DatabaseService;
 
 import java.sql.PreparedStatement;
@@ -32,5 +33,17 @@ public class UserDAO {
             e.printStackTrace();
         }
         return userList;
+    }
+
+    public static String POSTUser(ArrayList<Object> uList) {
+        String query = "";
+        for(Object o : uList) {
+            User u = (User) o;
+            query = query + "INSERT INTO vehicles VALUES(" + u.getUserId() + ", " + u.getEmail() + ", " + u.getPassword()
+        + ", " + u.getName() + ")";
+        }
+        PreparedStatement ps = DatabaseService.prepareQuery(query);
+        DatabaseService.executeQuery(ps);
+        return "200 OK";
     }
 }

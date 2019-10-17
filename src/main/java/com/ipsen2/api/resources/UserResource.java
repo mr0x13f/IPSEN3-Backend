@@ -1,10 +1,13 @@
 package com.ipsen2.api.resources;
 
 import com.ipsen2.api.APIResponse;
+import com.ipsen2.api.models.User;
+import com.ipsen2.api.services.JacksonService;
 import com.ipsen2.api.services.UserService;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.ArrayList;
 
 /**
  * Resource class for checking requests revolving users.
@@ -25,8 +28,10 @@ public class UserResource {
 
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    public String POSTUser() {
-        return "{'message': 'not implemented :('}".replace("'","\"");
+    public String POSTUser(String userData) {
+        ArrayList<Object> uList = JacksonService.readValue(userData, User.class);
+        APIResponse response = new APIResponse(UserService.POSTUser(uList));
+        return response.serialize();
     }
 
     @PUT
