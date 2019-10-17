@@ -1,6 +1,7 @@
 package com.ipsen2.api.dao;
 
 import com.ipsen2.api.models.Project;
+import com.ipsen2.api.models.Rate;
 import com.ipsen2.api.services.DatabaseService;
 
 import java.sql.PreparedStatement;
@@ -31,5 +32,17 @@ public class ProjectDAO {
             e.printStackTrace();
         }
         return projectList;
+    }
+
+    public static String POSTProject(ArrayList<Object> pList) {
+        String query = "";
+        for(Object o : pList) {
+            Project p = (Project) o;
+            query = query + "INSERT INTO projects VALUES(" + p.getProjectId() + ", " + p.getName() + ")";
+
+        }
+        PreparedStatement ps = DatabaseService.prepareQuery(query);
+        DatabaseService.executeQuery(ps);
+        return "200 OK";
     }
 }

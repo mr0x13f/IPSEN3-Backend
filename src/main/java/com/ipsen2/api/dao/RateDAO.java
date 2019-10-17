@@ -38,7 +38,7 @@ public class RateDAO {
         String query = "";
         for(Object o : rList) {
             Rate r = (Rate) o;
-            query = query + "INSERT INTO vehicles VALUES(" + r.getName() + ", " + r.getAmount() + ")";
+            query = query + "INSERT INTO rates VALUES(" + r.getName() + ", " + r.getAmount() + ")";
 
         }
         PreparedStatement ps = DatabaseService.prepareQuery(query);

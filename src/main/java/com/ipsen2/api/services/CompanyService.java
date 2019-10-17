@@ -17,7 +17,7 @@ public class CompanyService {
         return CompanyDAO.GETCompanyData();
     }
 
-    public static String POSTVehicle(ArrayList<Object> cList) {
-        return CompanyDAO.POSTVehicle(cList);
+    public static String POSTCompany(ArrayList<Object> cList) {
+        return CompanyDAO.POSTCompany(cList);
     }
 }

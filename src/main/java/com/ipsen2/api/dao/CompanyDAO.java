@@ -34,11 +34,11 @@ public class CompanyDAO {
         return companyList;
     }
 
-    public static String POSTVehicle(ArrayList<Object> cList) {
+    public static String POSTCompany(ArrayList<Object> cList) {
         String query = "";
         for(Object o : cList) {
             Company c = (Company) o;
-            query = query + "INSERT INTO vehicles VALUES(" + c.getCompanyId() + ", " + c.getName() + ")";
+            query = query + "INSERT INTO company VALUES(" + c.getCompanyId() + ", " + c.getName() + ")";
         }
         PreparedStatement ps = DatabaseService.prepareQuery(query);
         DatabaseService.executeQuery(ps);
