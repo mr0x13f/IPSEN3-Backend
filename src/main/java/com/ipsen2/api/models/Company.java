@@ -19,4 +19,12 @@ public class Company {
         this.companyId = id;
         this.name = name;
     }
+
+    public int getCompanyId() {
+        return this.companyId;
+    }
+
+    public String getName() {
+        return this.name;
+    }
 }

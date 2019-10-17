@@ -32,10 +32,11 @@ public class DebugAPIResource {
     @Path("/testtable")
     @Produces(MediaType.APPLICATION_JSON)
     public String GETTest() {
-        PreparedStatement ps = DatabaseService.prepareQuery("SELECT * FROM test;");
+        PreparedStatement ps = DatabaseService.prepareQuery("SELECT * FROM test");
         ResultSet rs = DatabaseService.executeQuery(ps);
         String id = "pannenkoek";
         try {
+            rs.next();
             id = rs.getString("id");
         } catch (SQLException e) {
             e.printStackTrace();
