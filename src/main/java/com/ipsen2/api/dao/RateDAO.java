@@ -1,5 +1,6 @@
 package com.ipsen2.api.dao;
 
+import com.ipsen2.api.models.Company;
 import com.ipsen2.api.models.Rate;
 import com.ipsen2.api.services.DatabaseService;
 
@@ -31,5 +32,17 @@ public class RateDAO {
             e.printStackTrace();
         }
         return rateList;
+    }
+
+    public static String POSTRate(ArrayList<Object> rList) {
+        String query = "";
+        for(Object o : rList) {
+            Rate r = (Rate) o;
+            query = query + "INSERT INTO vehicles VALUES(" + r.getName() + ", " + r.getAmount() + ")";
+
+        }
+        PreparedStatement ps = DatabaseService.prepareQuery(query);
+        DatabaseService.executeQuery(ps);
+        return "200 OK";
     }
 }

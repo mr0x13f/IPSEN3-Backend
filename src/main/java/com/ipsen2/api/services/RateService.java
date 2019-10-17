@@ -16,4 +16,8 @@ public class RateService {
     public static ArrayList<Rate> GETRateList() {
         return RateDAO.GETRateData();
     }
+
+    public static String POSTRate(ArrayList<Object> rList) {
+        return RateDAO.POSTRate(rList);
+    }
 }
