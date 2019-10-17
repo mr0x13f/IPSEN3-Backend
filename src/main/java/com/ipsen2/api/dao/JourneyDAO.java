@@ -43,4 +43,19 @@ public class JourneyDAO {
         }
         return journeyList;
     }
+
+    public static String POSTJourney(ArrayList<Object> jList) {
+        String query = "";
+        for(Object o : jList) {
+            Journey j = (Journey) o;
+            query = query + "INSERT INTO journeys VALUES(" + j.getJourneyId() + ", " + j.getKilometers() + ", "
+                    + j.getVehicleLicensePlate() + ", " + j.getDestination() + ", " + j.getRateId() + ", " + j.getProjectId()
+                    + ", " + j.getDescription() + ", " + j.getParkingCost() + ", " + j.getOtherCost() + ", "
+                    + j.getCreatorId() + ", " + j.isBilled() + ");";
+        }
+        PreparedStatement ps = DatabaseService.prepareQuery(query);
+        DatabaseService.executeQuery(ps);
+        return "200 OK";
+
+    }
 }

@@ -50,4 +50,47 @@ public class Journey {
 
     }
 
+    public int getJourneyId() {
+        return journeyId;
+    }
+
+    public int getKilometers() {
+        return kilometers;
+    }
+
+    public String getVehicleLicensePlate() {
+        return vehicleLicensePlate;
+    }
+
+    public String getDestination() {
+        return destination;
+    }
+
+    public int getRateId() {
+        return rateId;
+    }
+
+    public int getProjectId() {
+        return projectId;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public double getParkingCost() {
+        return parkingCost;
+    }
+
+    public double getOtherCost() {
+        return otherCost;
+    }
+
+    public int getCreatorId() {
+        return creatorId;
+    }
+
+    public boolean isBilled() {
+        return isBilled;
+    }
 }
