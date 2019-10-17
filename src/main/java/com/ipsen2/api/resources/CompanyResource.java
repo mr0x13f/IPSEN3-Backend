@@ -31,7 +31,7 @@ public class CompanyResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public static String POSTCompany (String companyData) {
         ArrayList<Object> cList = JacksonService.readValue(companyData, Company.class);
-        APIResponse response = new APIResponse(CompanyService.POSTVehicle(cList));
+        APIResponse response = new APIResponse(CompanyService.POSTCompany(cList));
         return response.serialize();
     }
 

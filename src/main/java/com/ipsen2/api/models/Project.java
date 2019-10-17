@@ -19,4 +19,12 @@ public class Project {
         this.projectId = id;
         this.name = name;
     }
+
+    public int getProjectId() {
+        return this.projectId;
+    }
+
+    public String getName() {
+        return this.name;
+    }
 }

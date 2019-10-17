@@ -16,4 +16,8 @@ public class ProjectService {
     public static ArrayList<Project> GETProjectList() {
         return ProjectDAO.GETProjectData();
     }
+
+    public static String POSTProject(ArrayList<Object> pList) {
+        return ProjectDAO.POSTProject(pList);
+    }
 }

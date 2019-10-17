@@ -39,7 +39,7 @@ public class UserDAO {
         String query = "";
         for(Object o : uList) {
             User u = (User) o;
-            query = query + "INSERT INTO vehicles VALUES(" + u.getUserId() + ", " + u.getEmail() + ", " + u.getPassword()
+            query = query + "INSERT INTO users VALUES(" + u.getUserId() + ", " + u.getEmail() + ", " + u.getPassword()
         + ", " + u.getName() + ")";
         }
         PreparedStatement ps = DatabaseService.prepareQuery(query);
