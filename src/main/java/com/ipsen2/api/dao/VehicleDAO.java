@@ -32,11 +32,13 @@ public class VehicleDAO {
     }
 
     public static String POSTVehicle(ArrayList<Object> vList) {
+        String query = "";
         for(Object o : vList) {
             Vehicle v = (Vehicle) o;
-            PreparedStatement ps = DatabaseService.prepareQuery("INSERT INTO vehicles VALUES(" + v.getLicensePlate() + ", " + v.getDescription() + ")");
-            DatabaseService.executeQuery(ps);
+            query = query + "INSERT INTO vehicles VALUES(" + v.getLicensePlate() + ", " + v.getDescription() + ")";
         }
+        PreparedStatement ps = DatabaseService.prepareQuery(query);
+        DatabaseService.executeQuery(ps);
         return "200 OK";
     }
 }

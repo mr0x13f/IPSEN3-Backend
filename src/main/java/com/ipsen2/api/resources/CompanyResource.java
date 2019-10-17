@@ -1,10 +1,13 @@
 package com.ipsen2.api.resources;
 
 import com.ipsen2.api.APIResponse;
+import com.ipsen2.api.models.Company;
 import com.ipsen2.api.services.CompanyService;
+import com.ipsen2.api.services.JacksonService;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.ArrayList;
 
 /**
  * Resource class for handling requests revolving companies.
@@ -25,8 +28,10 @@ public class CompanyResource {
 
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    public static String POSTCompany () {
-        APIResponse response = new APIResponse("1 Not implemented");
+    @Consumes(MediaType.APPLICATION_JSON)
+    public static String POSTCompany (String companyData) {
+        ArrayList<Object> cList = JacksonService.readValue(companyData, Company.class);
+        APIResponse response = new APIResponse(CompanyService.POSTVehicle(cList));
         return response.serialize();
     }
 
