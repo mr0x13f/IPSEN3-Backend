@@ -11,20 +11,27 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Project {
 
     @JsonProperty("projectId")
-    private int projectId;
+    private String projectId;
     @JsonProperty("name")
     private String name;
+    @JsonProperty("companyId")
+    private String companyId;
 
-    public Project(int id, String name) {
-        this.projectId = id;
+    public Project(String projectId, String name, String companyId) {
+        this.projectId = projectId;
         this.name = name;
+        this.companyId = companyId;
     }
 
-    public int getProjectId() {
+    public String getProjectId() {
         return this.projectId;
     }
 
     public String getName() {
         return this.name;
+    }
+
+    public String getCompanyId() {
+        return this.companyId;
     }
 }

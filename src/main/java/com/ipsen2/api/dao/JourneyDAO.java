@@ -23,20 +23,21 @@ public class JourneyDAO {
 
         try {
             while(rs.next()) {
-                int journeyId = rs.getInt("journeyId");
-                int km = rs.getInt("kilometers");
-                String lPlate = rs.getString("vehicleLicensePlate");
-                String dest = rs.getString("destination");
-                int rateId = rs.getInt("rateId");
-                int projectId = rs.getInt("projectId");
-                String desc = rs.getString("description");
-                double parkingC = rs.getDouble("parkingCost");
-                double otherC = rs.getDouble("otherCost");
-                int creatorId = rs.getInt("creatorId");
-                boolean isBilled = rs.getBoolean("isBilled");
 
-                journeyList.add(new Journey(journeyId, km, lPlate, dest, rateId, projectId,
-                        desc, parkingC, otherC, creatorId, isBilled));
+                String journeyId = rs.getString("journeyId");
+                int kilometers = rs.getInt("kilometers");
+                String destination = rs.getString("destination");
+                String description = rs.getString("description");
+                String date = rs.getString("date");
+                String licensePlate = rs.getString("licensePlate");
+                boolean isBilled = rs.getBoolean("isBilled");
+                double parkingCost = rs.getDouble("parkingCost");
+                double otherCost = rs.getDouble("otherCost");
+                double rate = rs.getDouble("rate");
+                String projectId = rs.getString("projectId");
+                String creatorId = rs.getString("creatorId");
+
+                journeyList.add(new Journey(journeyId, kilometers, destination, description, date, licensePlate, isBilled, parkingCost, otherCost, rate, projectId, creatorId));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -45,17 +46,29 @@ public class JourneyDAO {
     }
 
     public static String POSTJourney(ArrayList<Object> jList) {
-        String query = "";
-        for(Object o : jList) {
-            Journey j = (Journey) o;
-            query = query + "INSERT INTO journeys VALUES(" + j.getJourneyId() + ", " + j.getKilometers() + ", "
-                    + j.getVehicleLicensePlate() + ", " + j.getDestination() + ", " + j.getRateId() + ", " + j.getProjectId()
-                    + ", " + j.getDescription() + ", " + j.getParkingCost() + ", " + j.getOtherCost() + ", "
-                    + j.getCreatorId() + ", " + j.isBilled() + ");";
+        try {
+            for (Object o : jList) {
+                Journey j = (Journey) o;
+                String query = "INSERT INTO journeys VALUES(?,?,?,?,?,?,?,?,?,?,?,?);";
+                PreparedStatement ps = DatabaseService.prepareQuery(query);
+                ps.setString( 1, j.getJourneyId());
+                ps.setInt(    2, j.getKilometers());;
+                ps.setString( 3, j.getDestination());
+                ps.setString( 4, j.getDescription());
+                ps.setString( 5, j.getDate());
+                ps.setString( 6, j.getLicensePlate());
+                ps.setBoolean(7, j.isBilled());
+                ps.setDouble( 8, j.getParkingCost());
+                ps.setDouble( 9, j.getOtherCost());
+                ps.setDouble(10, j.getRate());
+                ps.setString(11, j.getProjectId());
+                ps.setString(12, j.getCreatorId());
+                DatabaseService.executeQuery(ps);
+            }
+            return "200 OK";
+        } catch (java.sql.SQLException e) {
+            return "500 SQL error";
         }
-        PreparedStatement ps = DatabaseService.prepareQuery(query);
-        DatabaseService.executeQuery(ps);
-        return "200 OK";
 
     }
 }

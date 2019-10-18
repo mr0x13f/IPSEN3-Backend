@@ -17,7 +17,8 @@ import java.util.Arrays;
     1       Not implemented
 
     100     Server error
-    101     Server error: JsonProcessingException in .serialize()
+    101     Server error: JSON error
+    102     Server error: SQL error
 
  */
 

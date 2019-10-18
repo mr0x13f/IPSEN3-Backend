@@ -23,10 +23,10 @@ public class CompanyDAO {
 
         try {
             while(rs.next()) {
-                int id = rs.getInt("companyId");
+                String companyId = rs.getString("companyId");
                 String name = rs.getString("name");
 
-                companyList.add(new Company(id, name));
+                companyList.add(new Company(companyId, name));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -35,13 +35,18 @@ public class CompanyDAO {
     }
 
     public static String POSTCompany(ArrayList<Object> cList) {
-        String query = "";
-        for(Object o : cList) {
-            Company c = (Company) o;
-            query = query + "INSERT INTO company VALUES(" + c.getCompanyId() + ", " + c.getName() + ")";
+        try {
+            for (Object o : cList) {
+                Company c = (Company) o;
+                String query = "INSERT INTO companies VALUES(?,?);";
+                PreparedStatement ps = DatabaseService.prepareQuery(query);
+                ps.setString( 1, c.getCompanyId());
+                ps.setString( 2, c.getName());
+                DatabaseService.executeQuery(ps);
+            }
+            return "200 OK";
+        } catch (java.sql.SQLException e) {
+            return "500 SQL error";
         }
-        PreparedStatement ps = DatabaseService.prepareQuery(query);
-        DatabaseService.executeQuery(ps);
-        return "200 OK";
     }
 }

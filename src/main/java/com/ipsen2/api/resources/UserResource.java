@@ -19,6 +19,12 @@ import java.util.ArrayList;
 public class UserResource {
 
     @GET
+    public String dummy() {
+        return "";
+    }
+
+    /*
+    @GET
     @Path("/get/all")
     @Produces(MediaType.APPLICATION_JSON)
     public String GETUser() {
@@ -45,4 +51,5 @@ public class UserResource {
     public String DELETEUser() {
         return "{'message': 'not implemented :('}".replace("'","\"");
     }
+    */
 }

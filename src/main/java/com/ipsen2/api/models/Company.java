@@ -11,16 +11,16 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Company {
 
     @JsonProperty("companyId")
-    private int companyId;
+    private String companyId;
     @JsonProperty("name")
     private String name;
 
-    public Company(int id, String name) {
-        this.companyId = id;
+    public Company(String companyId, String name) {
+        this.companyId = companyId;
         this.name = name;
     }
 
-    public int getCompanyId() {
+    public String getCompanyId() {
         return this.companyId;
     }
 
