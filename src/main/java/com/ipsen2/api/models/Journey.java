@@ -11,46 +11,48 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Journey {
 
     @JsonProperty("journeyId")
-    private int journeyId;
+    private String journeyId;
     @JsonProperty("kilometers")
     private int kilometers;
-    @JsonProperty("vehicleLicensePlate")
-    private String vehicleLicensePlate;
     @JsonProperty("destination")
     private String destination;
-    @JsonProperty("rateId")
-    private int rateId;
-    @JsonProperty("projectId")
-    private int projectId;
     @JsonProperty("description")
     private String description;
+    @JsonProperty("date")
+    private String date;
+    @JsonProperty("licensePlate")
+    private String licensePlate;
+    @JsonProperty("isBilled")
+    private boolean isBilled;
     @JsonProperty("parkingCost")
     private double parkingCost;
     @JsonProperty("otherCost")
     private double otherCost;
+    @JsonProperty("rate")
+    private double rate;
+    @JsonProperty("projectId")
+    private String projectId;
     @JsonProperty("creatorId")
-    private int creatorId;
-    @JsonProperty("isBilled")
-    private boolean isBilled;
+    private String creatorId;
 
-    public Journey(int id, int km, String vLicensePlate, String dest, int rate, int project, String desc,
-                   double parkingCost, double extraCost, int creatorId, boolean isBilled) {
+    public Journey(String journeyId, int kilometers, String destination, String description, String date, String licensePlate, boolean isBilled, double parkingCost, double otherCost, double rate, String projectId, String creatorId) {
 
-        this.journeyId = id;
-        this.kilometers = km;
-        this.vehicleLicensePlate = vLicensePlate;
-        this.destination = dest;
-        this.rateId = rate;
-        this.projectId = project;
-        this.description = desc;
-        this.parkingCost = parkingCost;
-        this.otherCost = extraCost;
-        this.creatorId = creatorId;
+        this.journeyId = journeyId;
+        this.kilometers = kilometers;
+        this.destination = destination;
+        this.description = description;
+        this.date = date;
+        this.licensePlate = licensePlate;
         this.isBilled = isBilled;
+        this.parkingCost = parkingCost;
+        this.otherCost = otherCost;
+        this.rate = rate;
+        this.projectId = projectId;
+        this.creatorId = creatorId;
 
     }
 
-    public int getJourneyId() {
+    public String getJourneyId() {
         return journeyId;
     }
 
@@ -58,24 +60,24 @@ public class Journey {
         return kilometers;
     }
 
-    public String getVehicleLicensePlate() {
-        return vehicleLicensePlate;
-    }
-
     public String getDestination() {
         return destination;
     }
 
-    public int getRateId() {
-        return rateId;
-    }
-
-    public int getProjectId() {
-        return projectId;
-    }
-
     public String getDescription() {
         return description;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public String getLicensePlate() {
+        return licensePlate;
+    }
+
+    public boolean isBilled() {
+        return isBilled;
     }
 
     public double getParkingCost() {
@@ -86,11 +88,15 @@ public class Journey {
         return otherCost;
     }
 
-    public int getCreatorId() {
-        return creatorId;
+    public double getRate() {
+        return rate;
     }
 
-    public boolean isBilled() {
-        return isBilled;
+    public String getProjectId() {
+        return projectId;
+    }
+
+    public String getCreatorId() {
+        return creatorId;
     }
 }

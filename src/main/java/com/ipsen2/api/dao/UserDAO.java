@@ -1,7 +1,6 @@
 package com.ipsen2.api.dao;
 
 import com.ipsen2.api.models.User;
-import com.ipsen2.api.models.Vehicle;
 import com.ipsen2.api.services.DatabaseService;
 
 import java.sql.PreparedStatement;
@@ -23,11 +22,11 @@ public class UserDAO {
         ArrayList<User> userList = new ArrayList<>();
         try {
             while(rs.next()) {
-                int id = rs.getInt("userId");
+                String userId = rs.getString("userId");
                 String email = rs.getString("email");
                 String password = rs.getString("password");
                 String name = rs.getString("name");
-                userList.add(new User(id, email, password, name));
+                userList.add(new User(userId, email, password, name));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -36,14 +35,20 @@ public class UserDAO {
     }
 
     public static String POSTUser(ArrayList<Object> uList) {
-        String query = "";
-        for(Object o : uList) {
-            User u = (User) o;
-            query = query + "INSERT INTO users VALUES(" + u.getUserId() + ", " + u.getEmail() + ", " + u.getPassword()
-        + ", " + u.getName() + ")";
+        try {
+            for (Object o : uList) {
+                User c = (User) o;
+                String query = "INSERT INTO users VALUES(?,?,?,?);";
+                PreparedStatement ps = DatabaseService.prepareQuery(query);
+                ps.setString( 1, c.getUserId());
+                ps.setString( 2, c.getEmail());
+                ps.setString( 3, c.getPassword());
+                ps.setString( 4, c.getName());
+                DatabaseService.executeQuery(ps);
+            }
+            return "200 OK";
+        } catch (java.sql.SQLException e) {
+            return "500 SQL error";
         }
-        PreparedStatement ps = DatabaseService.prepareQuery(query);
-        DatabaseService.executeQuery(ps);
-        return "200 OK";
     }
 }

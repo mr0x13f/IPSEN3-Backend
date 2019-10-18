@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class CompanyResource {
 
     @GET
-    @Path("/get/all")
+    @Path("/all")
     @Produces(MediaType.APPLICATION_JSON)
     public static String GETCompany () {
         APIResponse response = new APIResponse(CompanyService.GETCompanyList());

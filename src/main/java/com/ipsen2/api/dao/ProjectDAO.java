@@ -1,7 +1,6 @@
 package com.ipsen2.api.dao;
 
 import com.ipsen2.api.models.Project;
-import com.ipsen2.api.models.Rate;
 import com.ipsen2.api.services.DatabaseService;
 
 import java.sql.PreparedStatement;
@@ -24,9 +23,10 @@ public class ProjectDAO {
 
         try {
             while(rs.next()) {
-                int id = rs.getInt("projectId");
+                String projectId = rs.getString("projectId");
                 String name = rs.getString("name");
-                projectList.add(new Project(id, name));
+                String companyId = rs.getString("companyId");
+                projectList.add(new Project(projectId, name, companyId));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -35,14 +35,19 @@ public class ProjectDAO {
     }
 
     public static String POSTProject(ArrayList<Object> pList) {
-        String query = "";
-        for(Object o : pList) {
-            Project p = (Project) o;
-            query = query + "INSERT INTO projects VALUES(" + p.getProjectId() + ", " + p.getName() + ")";
-
+        try {
+            for (Object o : pList) {
+                Project p = (Project) o;
+                String query = "INSERT INTO projects VALUES(?,?,?);";
+                PreparedStatement ps = DatabaseService.prepareQuery(query);
+                ps.setString( 1, p.getProjectId());
+                ps.setString( 2, p.getName());
+                ps.setString( 3, p.getCompanyId());
+                DatabaseService.executeQuery(ps);
+            }
+            return "200 OK";
+        } catch (java.sql.SQLException e) {
+            return "500 SQL error";
         }
-        PreparedStatement ps = DatabaseService.prepareQuery(query);
-        DatabaseService.executeQuery(ps);
-        return "200 OK";
     }
 }

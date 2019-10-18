@@ -32,9 +32,7 @@ public class IPSEN2_APIApplication extends Application<IPSEN2_APIConfiguration> 
                 new CompanyResource(),
                 new JourneyResource(),
                 new ProjectResource(),
-                new RateResource(),
-                new UserResource(),
-                new VehicleResource()
+                new UserResource()
         );
 
     }
