@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * Resource class for checking requests revolving users.
  *
  * @author TimvHal, Tim W
- * @version 14/10/2019
+ * @version 28/10/2019
  */
 @Path("/user")
 public class UserResource {
@@ -23,12 +23,11 @@ public class UserResource {
         return "";
     }
 
-    /*
-    @GET
+/*    @GET
     @Path("/get/all")
     @Produces(MediaType.APPLICATION_JSON)
     public String GETUser() {
-        APIResponse response = new APIResponse(UserService.GETUserList());
+        APIResponse response = new APIResponse(UserService.getUser());
         return response.serialize();
     }
 
@@ -50,6 +49,5 @@ public class UserResource {
     @Produces(MediaType.APPLICATION_JSON)
     public String DELETEUser() {
         return "{'message': 'not implemented :('}".replace("'","\"");
-    }
-    */
+    }*/
 }

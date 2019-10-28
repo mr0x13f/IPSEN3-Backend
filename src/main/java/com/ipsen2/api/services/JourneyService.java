@@ -9,15 +9,15 @@ import java.util.ArrayList;
  * Service for handling and completing requests revolving journeys.
  *
  * @author TimvHal
- * @version 14/10/2019
+ * @version 28/10/2019
  */
 public class JourneyService {
 
-    public static ArrayList<Journey> GETJourneyList() {
-        return JourneyDAO.GETJourneyData();
+    public static ArrayList<Journey> getJourney() {
+        return JourneyDAO.getJourney();
     }
 
-    public static String POSTJourney(ArrayList<Object> jList) {
-        return JourneyDAO.POSTJourney(jList);
+    public static String postJourney(ArrayList<Object> jList) {
+        return JourneyDAO.postJourney(jList);
     }
 }

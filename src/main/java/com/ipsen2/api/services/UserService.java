@@ -9,15 +9,15 @@ import java.util.ArrayList;
  * Service for handling and completing requests revolving users.
  *
  * @author TimvHal
- * @version 14/10/2019
+ * @version 28/10/2019
  */
 public class UserService {
 
-    public static ArrayList<User> GETUserList() {
-        return UserDAO.GETUserData();
+    public static ArrayList<User> getUser() {
+        return UserDAO.getUser();
     }
 
-    public static String POSTUser(ArrayList<Object> uList) {
-        return UserDAO.POSTUser(uList);
+    public static String postUser(ArrayList<Object> uList) {
+        return UserDAO.postUser(uList);
     }
 }

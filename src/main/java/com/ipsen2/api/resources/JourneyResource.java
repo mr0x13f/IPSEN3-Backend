@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * Resource class for checking requests revolving journeys.
  *
  * @author TimvHal, Tim W
- * @version 14/10/2019
+ * @version 28/10/2019
  */
 @Path("/journey")
 public class JourneyResource {
@@ -21,28 +21,28 @@ public class JourneyResource {
     @GET
     @Path("/get/all")
     @Produces(MediaType.APPLICATION_JSON)
-    public String GETJourney() {
-        APIResponse response = new APIResponse(JourneyService.GETJourneyList());
+    public String getJourney() {
+        APIResponse response = new APIResponse(JourneyService.getJourney());
         return response.serialize();
     }
 
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    public String POSTJourney(String journeyData) {
+    public String postJourney(String journeyData) {
         ArrayList<Object> jList = JacksonService.readValue(journeyData, Journey.class);
-        APIResponse response = new APIResponse(JourneyService.POSTJourney(jList));
+        APIResponse response = new APIResponse(JourneyService.postJourney(jList));
         return response.serialize();
     }
 
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
-    public String PUTJourney() {
+    public String updateJourney() {
         return "{'message': 'not implemented :('}".replace("'","\"");
     }
 
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
-    public String DELETEJourney() {
+    public String deleteJourney() {
         return "{'message': 'not implemented :('}".replace("'","\"");
     }
 }

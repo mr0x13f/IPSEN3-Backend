@@ -12,11 +12,11 @@ import java.util.ArrayList;
  * Class for interacting with database revolving Projects.
  *
  * @author TimvHal
- * @version 14/10/2019
+ * @version 28/10/2019
  */
 public class ProjectDAO {
 
-    public static ArrayList<Project> GETProjectData() {
+    public static ArrayList<Project> getProject() {
         PreparedStatement ps = DatabaseService.prepareQuery("SELECT * FROM projects");
         ResultSet rs = DatabaseService.executeQuery(ps);
         ArrayList<Project> projectList = new ArrayList<>();
@@ -34,7 +34,7 @@ public class ProjectDAO {
         return projectList;
     }
 
-    public static String POSTProject(ArrayList<Object> pList) {
+    public static String postProject(ArrayList<Object> pList) {
         try {
             for (Object o : pList) {
                 Project p = (Project) o;

@@ -12,11 +12,11 @@ import java.util.ArrayList;
  * Class for interacting with database revolving Journeys.
  *
  * @author TimvHal
- * @version 14/10/2019
+ * @version 28/10/2019
  */
 public class JourneyDAO {
 
-    public static ArrayList<Journey> GETJourneyData() {
+    public static ArrayList<Journey> getJourney() {
         PreparedStatement ps = DatabaseService.prepareQuery("SELECT * FROM journeys");
         ResultSet rs = DatabaseService.executeQuery(ps);
         ArrayList<Journey> journeyList = new ArrayList<>();
@@ -45,7 +45,7 @@ public class JourneyDAO {
         return journeyList;
     }
 
-    public static String POSTJourney(ArrayList<Object> jList) {
+    public static String postJourney(ArrayList<Object> jList) {
         try {
             for (Object o : jList) {
                 Journey j = (Journey) o;
