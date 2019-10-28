@@ -19,9 +19,18 @@ import java.util.ArrayList;
 public class CompanyResource {
 
     @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public static String getCompany(String companyData) {
+        ArrayList<Object> companyIdList = JacksonService.readValue(companyData, String.class);
+        APIResponse response = new APIResponse(CompanyService.getCompany(companyIdList));
+        return response.serialize();
+    }
+
+    @GET
     @Path("/all")
     @Produces(MediaType.APPLICATION_JSON)
-    public static String getCompany () {
+    public static String getAllCompanies() {
         APIResponse response = new APIResponse(CompanyService.getCompany());
         return response.serialize();
     }
@@ -29,7 +38,7 @@ public class CompanyResource {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public static String postCompany (String companyData) {
+    public static String postCompany(String companyData) {
         ArrayList<Object> cList = JacksonService.readValue(companyData, Company.class);
         APIResponse response = new APIResponse(CompanyService.postCompany(cList));
         return response.serialize();
@@ -37,15 +46,19 @@ public class CompanyResource {
 
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
-    public static String updateCompany () {
-        APIResponse response = new APIResponse("1 Not implemented");
+    @Consumes(MediaType.APPLICATION_JSON)
+    public static String updateCompany(String companyData) {
+        ArrayList<Object> cList = JacksonService.readValue(companyData, Company.class);
+        APIResponse response = new APIResponse(CompanyService.updateCompany(cList));
         return response.serialize();
     }
 
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
-    public static String deleteCompany () {
-        APIResponse response = new APIResponse("1 Not implemented");
+    @Consumes(MediaType.APPLICATION_JSON)
+    public static String deleteCompany(String companyData) {
+        ArrayList<Object> cList = JacksonService.readValue(companyData, Company.class);
+        APIResponse response = new APIResponse(CompanyService.deleteCompany(cList));
         return response.serialize();
     }
 
