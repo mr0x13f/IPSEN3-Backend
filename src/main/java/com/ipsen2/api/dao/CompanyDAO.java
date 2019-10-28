@@ -12,11 +12,11 @@ import java.util.ArrayList;
  * Class for interacting with database revolving Companies.
  *
  * @author TimvHal
- * @version 14/10/2019
+ * @version 28/10/2019
  */
 public class CompanyDAO {
 
-    public static ArrayList<Company> GETCompanyData() {
+    public static ArrayList<Company> getCompany() {
         PreparedStatement ps = DatabaseService.prepareQuery("SELECT * FROM companies");
         ResultSet rs = DatabaseService.executeQuery(ps);
         ArrayList<Company> companyList = new ArrayList<>();
@@ -34,7 +34,7 @@ public class CompanyDAO {
         return companyList;
     }
 
-    public static String POSTCompany(ArrayList<Object> cList) {
+    public static String postCompany(ArrayList<Object> cList) {
         try {
             for (Object o : cList) {
                 Company c = (Company) o;

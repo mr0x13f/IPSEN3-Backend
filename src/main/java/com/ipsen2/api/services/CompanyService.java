@@ -9,15 +9,15 @@ import java.util.ArrayList;
  * Service for handling and completing requests revolving companies.
  *
  * @author TimvHal
- * @version 14/10/2019
+ * @version 28/10/2019
  */
 public class CompanyService {
 
-    public static ArrayList<Company> GETCompanyList() {
-        return CompanyDAO.GETCompanyData();
+    public static ArrayList<Company> getCompany() {
+        return CompanyDAO.getCompany();
     }
 
-    public static String POSTCompany(ArrayList<Object> cList) {
-        return CompanyDAO.POSTCompany(cList);
+    public static String postCompany(ArrayList<Object> cList) {
+        return CompanyDAO.postCompany(cList);
     }
 }

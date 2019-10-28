@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * Resource class for checking requests revolving projects.
  *
  * @author TimvHal, Tim W
- * @version 14/10/2019
+ * @version 28/10/2019
  */
 @Path("/project")
 public class ProjectResource {
@@ -21,28 +21,28 @@ public class ProjectResource {
     @GET
     @Path("/get/all")
     @Produces(MediaType.APPLICATION_JSON)
-    public String GETProject() {
-        APIResponse response = new APIResponse(ProjectService.GETProjectList());
+    public String getProject() {
+        APIResponse response = new APIResponse(ProjectService.getProject());
         return response.serialize();
     }
 
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    public String POSTProject(String projectData) {
+    public String postProject(String projectData) {
         ArrayList<Object> pList = JacksonService.readValue(projectData, Project.class);
-        APIResponse response = new APIResponse(ProjectService.POSTProject(pList));
+        APIResponse response = new APIResponse(ProjectService.postProject(pList));
         return response.serialize();
     }
 
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
-    public String PUTProject() {
+    public String updateProject() {
         return "{'message': 'not implemented :('}".replace("'","\"");
     }
 
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
-    public String DELETEProject() {
+    public String deleteProject() {
         return "{'message': 'not implemented :('}".replace("'","\"");
     }
 }

@@ -12,11 +12,11 @@ import java.util.ArrayList;
  * Class for interacting with database revolving Users.
  *
  * @author TimvHal
- * @version 14/10/2019
+ * @version 28/10/2019
  */
 public class UserDAO {
 
-    public static ArrayList<User> GETUserData() {
+    public static ArrayList<User> getUser() {
         PreparedStatement ps = DatabaseService.prepareQuery("SELECT * FROM users");
         ResultSet rs = DatabaseService.executeQuery(ps);
         ArrayList<User> userList = new ArrayList<>();
@@ -34,7 +34,7 @@ public class UserDAO {
         return userList;
     }
 
-    public static String POSTUser(ArrayList<Object> uList) {
+    public static String postUser(ArrayList<Object> uList) {
         try {
             for (Object o : uList) {
                 User c = (User) o;

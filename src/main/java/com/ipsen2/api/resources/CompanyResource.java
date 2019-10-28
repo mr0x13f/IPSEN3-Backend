@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * Resource class for handling requests revolving companies.
  *
  * @author TimvHal, Tim W
- * @version 14/10/2019
+ * @version 28/10/2019
  */
 @Path("/company")
 public class CompanyResource {
@@ -21,30 +21,30 @@ public class CompanyResource {
     @GET
     @Path("/all")
     @Produces(MediaType.APPLICATION_JSON)
-    public static String GETCompany () {
-        APIResponse response = new APIResponse(CompanyService.GETCompanyList());
+    public static String getCompany () {
+        APIResponse response = new APIResponse(CompanyService.getCompany());
         return response.serialize();
     }
 
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public static String POSTCompany (String companyData) {
+    public static String postCompany (String companyData) {
         ArrayList<Object> cList = JacksonService.readValue(companyData, Company.class);
-        APIResponse response = new APIResponse(CompanyService.POSTCompany(cList));
+        APIResponse response = new APIResponse(CompanyService.postCompany(cList));
         return response.serialize();
     }
 
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
-    public static String PUTCompany () {
+    public static String updateCompany () {
         APIResponse response = new APIResponse("1 Not implemented");
         return response.serialize();
     }
 
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
-    public static String DELETECompany () {
+    public static String deleteCompany () {
         APIResponse response = new APIResponse("1 Not implemented");
         return response.serialize();
     }
