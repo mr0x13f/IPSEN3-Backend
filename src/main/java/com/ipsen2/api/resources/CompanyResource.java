@@ -19,16 +19,14 @@ import java.util.ArrayList;
 public class CompanyResource {
 
     @GET
+    @Path("/{companyId}")
     @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    public static String getCompany(String companyData) {
-        ArrayList<Object> companyIdList = JacksonService.readValue(companyData, String.class);
-        APIResponse response = new APIResponse(CompanyService.getCompany(companyIdList));
+    public static String getCompany(@PathParam("companyId") String companyId) {
+        APIResponse response = new APIResponse(CompanyService.getCompany(companyId));
         return response.serialize();
     }
 
     @GET
-    @Path("/all")
     @Produces(MediaType.APPLICATION_JSON)
     public static String getAllCompanies() {
         APIResponse response = new APIResponse(CompanyService.getCompany());

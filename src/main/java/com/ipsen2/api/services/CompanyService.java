@@ -17,8 +17,8 @@ public class CompanyService {
         return CompanyDAO.getCompany(null);
     }
 
-    public static ArrayList<Company> getCompany(ArrayList<Object> companyIdList) {
-        return CompanyDAO.getCompany(companyIdList);
+    public static ArrayList<Company> getCompany(String companyId) {
+        return CompanyDAO.getCompany(companyId);
     }
 
     public static String postCompany(ArrayList<Object> cList) {

@@ -19,10 +19,17 @@ import java.util.ArrayList;
 public class ProjectResource {
 
     @GET
-    @Path("/get/all")
     @Produces(MediaType.APPLICATION_JSON)
     public String getProject() {
         APIResponse response = new APIResponse(ProjectService.getProject());
+        return response.serialize();
+    }
+
+    @GET
+    @Path("/{projectId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getProject(@PathParam("projectId") String projectId) {
+        APIResponse response = new APIResponse(ProjectService.getProject(projectId));
         return response.serialize();
     }
 
@@ -36,13 +43,19 @@ public class ProjectResource {
 
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
-    public String updateProject() {
-        return "{'message': 'not implemented :('}".replace("'","\"");
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String updateProject(String projectData) {
+        ArrayList<Object> pList = JacksonService.readValue(projectData, Project.class);
+        APIResponse response = new APIResponse(ProjectService.updateProject(pList));
+        return response.serialize();
     }
 
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
-    public String deleteProject() {
-        return "{'message': 'not implemented :('}".replace("'","\"");
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String deleteProject(String projectData) {
+        ArrayList<Object> pList = JacksonService.readValue(projectData, Project.class);
+        APIResponse response = new APIResponse(ProjectService.deleteProject(pList));
+        return response.serialize();
     }
 }
