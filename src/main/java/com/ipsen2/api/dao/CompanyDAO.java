@@ -16,11 +16,11 @@ import java.util.ArrayList;
  */
 public class CompanyDAO {
 
-    public static ArrayList<Company> getCompany(ArrayList<Object> companyIdList) {
+    public static ArrayList<Company> getCompany(String id) {
         ArrayList<Company> companyList = new ArrayList<>();
-        //Checks if an ArrayList with Id's exists. If no specific Id's are given, it will retrieve all companies available.
-        if(companyList == null) {
-            PreparedStatement ps = DatabaseService.prepareQuery("SELECT * FROM companies");
+        //Checks if an Id exists. If no specific Id is given, it will retrieve all companies available.
+        if(id == null) {
+            PreparedStatement ps = DatabaseService.prepareQuery("SELECT * FROM companies;");
             ResultSet rs = DatabaseService.executeQuery(ps);
             try {
                 while (rs.next()) {
@@ -35,16 +35,13 @@ public class CompanyDAO {
         //If the ArrayList does exist, it loops through it to obtain specific companyId's and only retrieve the companies with said Id.
         else {
             try {
-                for(Object o : companyIdList) {
-                    String s = (String) o;
                     PreparedStatement ps = DatabaseService.prepareQuery("SELECT * FROM companies WHERE companyId = ?;");
-                    ps.setString(1, s);
+                    ps.setString(1, id);
                     ResultSet rs = DatabaseService.executeQuery(ps);
                     rs.next();
                     String companyId = rs.getString("companyId");
                     String name = rs.getString("name");
                     companyList.add(new Company(companyId, name));
-                }
             }
             catch(java.sql.SQLException e) {
                 e.printStackTrace();

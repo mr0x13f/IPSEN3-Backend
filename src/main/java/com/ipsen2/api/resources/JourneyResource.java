@@ -19,15 +19,23 @@ import java.util.ArrayList;
 public class JourneyResource {
 
     @GET
-    @Path("/get/all")
+    @Path("/{journeyId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getJourney() {
+    public String getJourney(@PathParam("journeyId") String journeyId) {
+        APIResponse response = new APIResponse(JourneyService.getJourney(journeyId));
+        return response.serialize();
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getJourneys() {
         APIResponse response = new APIResponse(JourneyService.getJourney());
         return response.serialize();
     }
 
     @POST
     @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
     public String postJourney(String journeyData) {
         ArrayList<Object> jList = JacksonService.readValue(journeyData, Journey.class);
         APIResponse response = new APIResponse(JourneyService.postJourney(jList));
@@ -36,13 +44,19 @@ public class JourneyResource {
 
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
-    public String updateJourney() {
-        return "{'message': 'not implemented :('}".replace("'","\"");
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String updateJourney(String journeyData) {
+        ArrayList<Object> jList = JacksonService.readValue(journeyData, Journey.class);
+        APIResponse response = new APIResponse(JourneyService.updateJourney(jList));
+        return response.serialize();
     }
 
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
-    public String deleteJourney() {
-        return "{'message': 'not implemented :('}".replace("'","\"");
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String deleteJourney(String journeyData){
+        ArrayList<Object> jList = JacksonService.readValue(journeyData, Journey.class);
+        APIResponse response = new APIResponse(JourneyService.deleteJourney(jList));
+        return response.serialize();
     }
 }
