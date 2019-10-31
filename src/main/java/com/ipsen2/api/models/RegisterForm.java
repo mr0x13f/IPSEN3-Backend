@@ -6,12 +6,12 @@ public class RegisterForm {
 
     @JsonProperty("email")
     private String email;
-    @JsonProperty("password")
-    private String password;
     @JsonProperty("name")
     private String name;
+    @JsonProperty("password")
+    private String password;
 
-    public RegisterForm(@JsonProperty("email") String email, @JsonProperty("password") String password, @JsonProperty("name") String name) {
+    public RegisterForm(@JsonProperty("email") String email, @JsonProperty("name") String name, @JsonProperty("password") String password) {
         this.email = email;
         this.password = password;
         this.name = name;
@@ -21,11 +21,11 @@ public class RegisterForm {
         return email;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
     public String getName() {
         return name;
+    }
+
+    public String getPassword() {
+        return password;
     }
 }
