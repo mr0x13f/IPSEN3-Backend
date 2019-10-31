@@ -1,6 +1,7 @@
 package com.ipsen2.api.dao;
 
 import com.ipsen2.api.models.Journey;
+import com.ipsen2.api.models.User;
 import com.ipsen2.api.services.DatabaseService;
 
 import java.sql.PreparedStatement;
@@ -16,12 +17,15 @@ import java.util.ArrayList;
  */
 public class JourneyDAO {
 
-    public static ArrayList<Journey> getJourney() {
-        PreparedStatement ps = DatabaseService.prepareQuery("SELECT * FROM journeys");
-        ResultSet rs = DatabaseService.executeQuery(ps);
-        ArrayList<Journey> journeyList = new ArrayList<>();
+    public static ArrayList<Journey> getJourney(User user) {
 
+        ArrayList<Journey> journeyList = new ArrayList<>();
         try {
+            PreparedStatement ps = DatabaseService.prepareQuery("SELECT * FROM journeys WHERE creatorId = ?;");
+            ps.setString(1, user.getUserId());
+
+            ResultSet rs = DatabaseService.executeQuery(ps);
+
             while(rs.next()) {
 
                 String journeyId = rs.getString("journeyId");
@@ -45,7 +49,7 @@ public class JourneyDAO {
         return journeyList;
     }
 
-    public static String postJourney(ArrayList<Object> jList) {
+    public static String postJourney(ArrayList<Object> jList, User user) {
         try {
             for (Object o : jList) {
                 Journey j = (Journey) o;
@@ -62,7 +66,7 @@ public class JourneyDAO {
                 ps.setDouble( 9, j.getOtherCost());
                 ps.setDouble(10, j.getRate());
                 ps.setString(11, j.getProjectId());
-                ps.setString(12, j.getCreatorId());
+                ps.setString(12, user.getUserId());
                 DatabaseService.executeQuery(ps);
             }
             return "200 OK";

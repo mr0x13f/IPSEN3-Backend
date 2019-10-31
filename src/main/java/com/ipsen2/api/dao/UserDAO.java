@@ -1,5 +1,6 @@
 package com.ipsen2.api.dao;
 
+import com.ipsen2.api.models.RegisterForm;
 import com.ipsen2.api.models.User;
 import com.ipsen2.api.services.DatabaseService;
 import io.dropwizard.auth.basic.BasicCredentials;
@@ -55,6 +56,24 @@ public class UserDAO {
         } catch (SQLException e) {
             e.printStackTrace();
             return Optional.empty();
+        }
+    }
+
+    public static void registerUser(RegisterForm registerForm) {
+        try {
+            PreparedStatement ps = DatabaseService.prepareQuery(
+                    "INSERT INTO users (email,name,password) VALUES (?,?, crypt(?, gen_salt('bf')));");
+
+            ps.setString(1, registerForm.getEmail());
+            ps.setString(2, registerForm.getName());
+            ps.setString(3, registerForm.getPassword());
+
+            System.out.println(registerForm.getEmail()+" | "+registerForm.getName()+" | "+registerForm.getPassword());
+
+            ResultSet rs = DatabaseService.executeQuery(ps);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 }

@@ -34,8 +34,8 @@ public class UserResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public String registerUser(String registerData) {
 
-        UserService.createUser(registerData);
-        APIResponse response = new APIResponse("KIPPIEKIPIIEKIPIIEKIPIEIEKEIEKIPKIPKPIKIKPIKI");
+        UserService.registerUser(registerData);
+        APIResponse response = new APIResponse("69 KIPPIEKIPIIEKIPIIEKIPIEIEKEIEKIPKIPKPIKIKPIKI");
         return response.serialize();
     }
 

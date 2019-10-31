@@ -2,6 +2,7 @@ package com.ipsen2.api.services;
 
 import com.ipsen2.api.dao.JourneyDAO;
 import com.ipsen2.api.models.Journey;
+import com.ipsen2.api.models.User;
 
 import java.util.ArrayList;
 
@@ -13,11 +14,11 @@ import java.util.ArrayList;
  */
 public class JourneyService {
 
-    public static ArrayList<Journey> getJourney() {
-        return JourneyDAO.getJourney();
+    public static ArrayList<Journey> getJourney(User user) {
+        return JourneyDAO.getJourney(user);
     }
 
-    public static String postJourney(ArrayList<Object> jList) {
-        return JourneyDAO.postJourney(jList);
+    public static String postJourney(ArrayList<Object> jList, User user) {
+        return JourneyDAO.postJourney(jList, user);
     }
 }
