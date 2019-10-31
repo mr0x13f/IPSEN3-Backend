@@ -1,9 +1,12 @@
 package com.ipsen2.api.services;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ipsen2.api.dao.UserDAO;
 import com.ipsen2.api.models.User;
+import io.dropwizard.auth.basic.BasicCredentials;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 /**
  * Service for handling and completing requests revolving users.
@@ -13,11 +16,14 @@ import java.util.ArrayList;
  */
 public class UserService {
 
-    public static ArrayList<User> getUser() {
-        return UserDAO.getUser();
+    public static Optional<User> getUser(BasicCredentials credentials) {
+        return UserDAO.getUser(credentials);
     }
 
-    public static String postUser(ArrayList<Object> uList) {
-        return UserDAO.postUser(uList);
+    public static void createUser(String registerData) {
+
+
+
     }
+
 }

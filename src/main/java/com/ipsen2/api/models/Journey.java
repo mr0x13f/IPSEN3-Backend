@@ -49,7 +49,6 @@ public class Journey {
         this.rate = rate;
         this.projectId = projectId;
         this.creatorId = creatorId;
-
     }
 
     public String getJourneyId() {
