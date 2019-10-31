@@ -1,7 +1,12 @@
 package com.ipsen2.api;
 
+import com.ipsen2.api.services.AuthenticationService;
+import com.ipsen2.api.models.User;
 import com.ipsen2.api.resources.*;
 import io.dropwizard.Application;
+import io.dropwizard.auth.AuthDynamicFeature;
+import io.dropwizard.auth.AuthValueFactoryProvider;
+import io.dropwizard.auth.basic.BasicCredentialAuthFilter;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 
@@ -34,6 +39,15 @@ public class IPSEN2_APIApplication extends Application<IPSEN2_APIConfiguration> 
                 new ProjectResource(),
                 new UserResource()
         );
+
+        // Registreer authenticator
+        environment.jersey().register(new AuthDynamicFeature(
+                new BasicCredentialAuthFilter.Builder<User>()
+                .setAuthenticator(new AuthenticationService())
+                .setRealm("SECURITY REALM")
+                .buildAuthFilter()
+        ));
+        environment.jersey().register(new AuthValueFactoryProvider.Binder<>(User.class));
 
     }
 

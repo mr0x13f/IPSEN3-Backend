@@ -2,8 +2,10 @@ package com.ipsen2.api.resources;
 
 import com.ipsen2.api.APIResponse;
 import com.ipsen2.api.models.User;
+import com.ipsen2.api.services.CompanyService;
 import com.ipsen2.api.services.JacksonService;
 import com.ipsen2.api.services.UserService;
+import io.dropwizard.auth.Auth;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -19,35 +21,22 @@ import java.util.ArrayList;
 public class UserResource {
 
     @GET
-    public String dummy() {
-        return "";
-    }
-
-/*    @GET
-    @Path("/get/all")
+    @Path("/authenticate")
     @Produces(MediaType.APPLICATION_JSON)
-    public String GETUser() {
-        APIResponse response = new APIResponse(UserService.getUser());
+    public String getUser(@Auth User user) {
+        APIResponse response = new APIResponse(user);
         return response.serialize();
     }
 
     @POST
+    @Path("/register")
     @Produces(MediaType.APPLICATION_JSON)
-    public String POSTUser(String userData) {
-        ArrayList<Object> uList = JacksonService.readValue(userData, User.class);
-        APIResponse response = new APIResponse(UserService.POSTUser(uList));
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String registerUser(String registerData) {
+
+        UserService.createUser(registerData);
+        APIResponse response = new APIResponse("KIPPIEKIPIIEKIPIIEKIPIEIEKEIEKIPKIPKPIKIKPIKI");
         return response.serialize();
     }
 
-    @PUT
-    @Produces(MediaType.APPLICATION_JSON)
-    public String PUTUser() {
-        return "{'message': 'not implemented :('}".replace("'","\"");
-    }
-
-    @DELETE
-    @Produces(MediaType.APPLICATION_JSON)
-    public String DELETEUser() {
-        return "{'message': 'not implemented :('}".replace("'","\"");
-    }*/
 }
