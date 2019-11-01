@@ -102,9 +102,8 @@ public class JourneyDAO {
         return jArray;
     }
 
-    public static String postJourney(Object j) {
+    public static String postJourney(Journey journey) {
         try {
-            Journey journey = (Journey) j;
             String query = "INSERT INTO journeys (kilometers, destination, description, date, license_plate, is_billed, " +
                     "parking_cost, other_cost, rate, project_id, creator_id) VALUES(?,?,?,?,?,?,?,?,?,?,?);";
             PreparedStatement ps = DatabaseService.prepareQuery(query);
@@ -135,34 +134,39 @@ public class JourneyDAO {
         try {
             Journey journey = (Journey) j;
             String query = "UPDATE journeys SET kilometers = ?, destination = ?, description = ?, " +
-                        "date = ?, licensePlate = ?, isBilled = ?, parkingCost = ?, otherCost = ?, " +
-                        "rate = ?, projectId = ?, creatorId = ? WHERE journeyId = ?;";
+                        "date = ?, license_plate = ?, is_billed = ?, parking_cost = ?, other_cost = ?, " +
+                        "rate = ?, project_id = ? WHERE journey_id = ? AND creator_id = ?;";
             PreparedStatement ps = DatabaseService.prepareQuery(query);
             ps.setInt(1, (journey.getKilometers()));
             ps.setString( 2, journey.getDestination());
             ps.setString( 3, journey.getDescription());
-            ps.setString( 4, journey.getDate());
+
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
+            Date parsedDate = dateFormat.parse(journey.getDate());
+            Timestamp timestamp = new java.sql.Timestamp(parsedDate.getTime());
+            ps.setObject( 4, timestamp);
             ps.setString( 5, journey.getLicensePlate());
             ps.setBoolean(6, journey.isBilled());
             ps.setDouble( 7, journey.getParkingCost());
             ps.setDouble( 8, journey.getOtherCost());
             ps.setDouble(9, journey.getRate());
-            ps.setString(10, journey.getProjectId());
-            ps.setString(11, journey.getCreatorId());
-            ps.setString(12, journey.getJourneyId());
+            ps.setObject(10, UUID.fromString(journey.getProjectId()));
+            ps.setObject(11, UUID.fromString(journey.getJourneyId()));
+            ps.setObject(12, UUID.fromString(journey.getCreatorId()));
             DatabaseService.executeQuery(ps);
             return "200 OK";
         }
-        catch(java.sql.SQLException e) {
+        catch(SQLException | ParseException e) {
             return "500 Server Error";
         }
     }
 
-    public static String deleteJourney(String journeyId) {
+    public static String deleteJourney(String creatorId, String journeyId) {
         try{
-            String query = "DELETE FROM journeys WHERE journey_id = ?;";
+            String query = "DELETE FROM journeys WHERE creator_id = ? AND journey_id = ?;";
             PreparedStatement ps = DatabaseService.prepareQuery(query);
-            ps.setObject(1, UUID.fromString(journeyId));
+            ps.setObject(1, UUID.fromString(creatorId));
+            ps.setObject(2, UUID.fromString(journeyId));
             DatabaseService.executeQuery(ps);
             return "200 OK";
         }

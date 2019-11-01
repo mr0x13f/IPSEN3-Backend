@@ -22,15 +22,15 @@ public class JourneyService {
         return JourneyDAO.getJourneys(creatorId);
     }
 
-    public static String postJourney(Object j) {
+    public static String postJourney(Journey j) {
         return JourneyDAO.postJourney(j);
     }
 
-    public static String updateJourney(Object j) {
+    public static String updateJourney(Journey j) {
         return JourneyDAO.updateJourney(j);
     }
 
-    public static String deleteJourney(String journeyId) {
-        return JourneyDAO.deleteJourney(journeyId);
+    public static String deleteJourney(String creatorId, String journeyId) {
+        return JourneyDAO.deleteJourney(creatorId, journeyId);
     }
 }
