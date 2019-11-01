@@ -1,4 +1,9 @@
-logging:
-  level: INFO
-  loggers:
-    com.ipsen2.api: DEBUG
+## YAML Config.
+---
+
+# server
+server:
+  applicationConnectors:
+    - type: http
+      port: 8080
+
