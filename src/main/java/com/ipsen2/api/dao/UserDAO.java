@@ -1,12 +1,15 @@
 package com.ipsen2.api.dao;
 
+import com.ipsen2.api.models.RegisterForm;
 import com.ipsen2.api.models.User;
 import com.ipsen2.api.services.DatabaseService;
+import io.dropwizard.auth.basic.BasicCredentials;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Optional;
 
 /**
  * Class for interacting with database revolving Users.
@@ -16,39 +19,61 @@ import java.util.ArrayList;
  */
 public class UserDAO {
 
-    public static ArrayList<User> getUser() {
-        PreparedStatement ps = DatabaseService.prepareQuery("SELECT * FROM users");
-        ResultSet rs = DatabaseService.executeQuery(ps);
-        ArrayList<User> userList = new ArrayList<>();
+    public static Optional<User> getUser(BasicCredentials credentials) {
         try {
+            PreparedStatement ps = DatabaseService.prepareQuery(
+                "SELECT u.user_id, u.email, u.name FROM users u " +
+                "WHERE u.email = ? " +
+                "AND crypt(?, u.password) = u.password;");
+
+            ps.setString(1, credentials.getUsername());
+            ps.setString(2, credentials.getPassword());
+
+            ResultSet rs = DatabaseService.executeQuery(ps);
+            ArrayList<User> userList = new ArrayList<>();
+
+            String userId = "";
+            String email = "";
+            String name = "";
+
+
+            int resultCount = 0;
             while(rs.next()) {
-                String userId = rs.getString("userId");
-                String email = rs.getString("email");
-                String password = rs.getString("password");
-                String name = rs.getString("name");
-                userList.add(new User(userId, email, password, name));
+                resultCount++;
+
+                userId = rs.getString("user_id");
+                email = rs.getString("email");
+                name = rs.getString("name");
             }
+
+            if (resultCount == 1) {
+                User user = new User(userId, email, name);
+                return Optional.of(user);
+            } else {
+                return Optional.empty();
+            }
+
         } catch (SQLException e) {
             e.printStackTrace();
+            return Optional.empty();
         }
-        return userList;
     }
 
-    public static String postUser(ArrayList<Object> uList) {
+    public static void registerUser(RegisterForm registerForm) {
         try {
-            for (Object o : uList) {
-                User c = (User) o;
-                String query = "INSERT INTO users VALUES(?,?,?,?);";
-                PreparedStatement ps = DatabaseService.prepareQuery(query);
-                ps.setString( 1, c.getUserId());
-                ps.setString( 2, c.getEmail());
-                ps.setString( 3, c.getPassword());
-                ps.setString( 4, c.getName());
-                DatabaseService.executeQuery(ps);
-            }
-            return "200 OK";
-        } catch (java.sql.SQLException e) {
-            return "500 SQL error";
+            PreparedStatement ps = DatabaseService.prepareQuery(
+                    "INSERT INTO users (email,name,password) VALUES (?,?, crypt(?, gen_salt('bf')));");
+
+            ps.setString(1, registerForm.getEmail());
+            ps.setString(2, registerForm.getName());
+            ps.setString(3, registerForm.getPassword());
+
+            System.out.println(registerForm.getEmail()+" | "+registerForm.getName()+" | "+registerForm.getPassword());
+
+            ResultSet rs = DatabaseService.executeQuery(ps);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 }

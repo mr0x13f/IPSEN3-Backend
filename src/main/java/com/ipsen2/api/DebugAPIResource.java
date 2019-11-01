@@ -1,6 +1,8 @@
 package com.ipsen2.api;
 
+import com.ipsen2.api.models.User;
 import com.ipsen2.api.services.DatabaseService;
+import io.dropwizard.auth.Auth;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -42,6 +44,29 @@ public class DebugAPIResource {
             e.printStackTrace();
         }
         return id;
+    }
+
+    @GET
+    @Path("/testusers")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String testusers() {
+        PreparedStatement ps = DatabaseService.prepareQuery("SELECT * FROM users");
+        ResultSet rs = DatabaseService.executeQuery(ps);
+        String str = "";
+        try {
+            rs.next();
+            str += rs.getString("user_id");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return str;
+    }
+
+    @GET
+    @Path("/authtest")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String authtest(@Auth User user) {
+        return "Hello secured world!";
     }
 
 

@@ -2,6 +2,7 @@ package com.ipsen2.api.dao;
 
 import com.ipsen2.api.models.Company;
 import com.ipsen2.api.models.Journey;
+import com.ipsen2.api.models.User;
 import com.ipsen2.api.services.DatabaseService;
 
 import java.sql.PreparedStatement;
