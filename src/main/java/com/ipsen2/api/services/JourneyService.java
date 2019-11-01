@@ -13,23 +13,23 @@ import java.util.ArrayList;
  */
 public class JourneyService {
 
-    public static ArrayList<Journey> getJourney(String journeyId) {
-        return JourneyDAO.getJourney(journeyId);
+    public static Journey getJourney(String creatorId, String journeyId) {
+        return JourneyDAO.getJourney(creatorId, journeyId);
     }
 
-    public static ArrayList<Journey> getJourney() {
-        return JourneyDAO.getJourney(null);
+    public static Journey[] getJourneys(String creatorId) {
+        return JourneyDAO.getJourneys(creatorId);
     }
 
-    public static String postJourney(ArrayList<Object> jList) {
-        return JourneyDAO.postJourney(jList);
+    public static String postJourney(Object j) {
+        return JourneyDAO.postJourney(j);
     }
 
-    public static String updateJourney(ArrayList<Object> jList) {
-        return JourneyDAO.updateJourney(jList);
+    public static String updateJourney(Object j) {
+        return JourneyDAO.updateJourney(j);
     }
 
-    public static String deleteJourney(ArrayList<Object> jList) {
-        return JourneyDAO.deleteJourney(jList);
+    public static String deleteJourney(String journeyId) {
+        return JourneyDAO.deleteJourney(journeyId);
     }
 }

@@ -55,34 +55,32 @@ public class ProjectDAO {
         return projectList;
     }
 
-    public static String postProject(ArrayList<Object> pList) {
+    public static String postProject(Object p) {
         try {
-            for (Object o : pList) {
-                Project p = (Project) o;
-                String query = "INSERT INTO projects VALUES(?,?,?);";
+            //for (Object o : pList) {
+                Project project = (Project) p;
+                String query = "INSERT INTO projects VALUES(uuid(?),?,uuid(?));";
                 PreparedStatement ps = DatabaseService.prepareQuery(query);
-                ps.setString( 1, p.getProjectId());
-                ps.setString( 2, p.getName());
-                ps.setString( 3, p.getCompanyId());
+                ps.setString( 1, project.getProjectId());
+                ps.setString( 2, project.getName());
+                ps.setString( 3, project.getCompanyId());
                 DatabaseService.executeQuery(ps);
-            }
+            //}
             return "200 OK";
         } catch (java.sql.SQLException e) {
             return "500 SQL error";
         }
     }
 
-    public static String updateProject(ArrayList<Object> pList) {
+    public static String updateProject(Object p) {
         try {
-            for(Object o : pList) {
-                Project p = (Project) o;
-                String query = "UPDATE projects SET name = ?, companyId = ? WHERE projectId = ?;";
-                PreparedStatement ps = DatabaseService.prepareQuery(query);
-                ps.setString(1, p.getName());
-                ps.setString(2, p.getCompanyId());
-                ps.setString(3, p.getProjectId());
-                DatabaseService.executeQuery(ps);
-            }
+            Project project = (Project) p;
+            String query = "UPDATE projects SET name = ?, companyId = ? WHERE projectId = ?;";
+            PreparedStatement ps = DatabaseService.prepareQuery(query);
+            ps.setString(1, project.getName());
+            ps.setString(2, project.getCompanyId());
+            ps.setString(3, project.getProjectId());
+            DatabaseService.executeQuery(ps);
             return "200 OK";
         }
         catch(java.sql.SQLException e) {
@@ -90,15 +88,12 @@ public class ProjectDAO {
         }
     }
 
-    public static String deleteProject(ArrayList<Object> pList) {
+    public static String deleteProject(String projectId) {
         try{
-            for(Object o: pList) {
-                Project p = (Project) o;
-                String query = "DELETE FROM projects WHERE projectId = ?;";
-                PreparedStatement ps = DatabaseService.prepareQuery(query);
-                ps.setString(1, p.getProjectId());
-                DatabaseService.executeQuery(ps);
-            }
+            String query = "DELETE FROM projects WHERE projectId = ?;";
+            PreparedStatement ps = DatabaseService.prepareQuery(query);
+            ps.setString(1, projectId);
+            DatabaseService.executeQuery(ps);
             return "200 OK";
         }
         catch(java.sql.SQLException e) {

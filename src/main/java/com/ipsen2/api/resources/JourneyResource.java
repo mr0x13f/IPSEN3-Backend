@@ -19,17 +19,18 @@ import java.util.ArrayList;
 public class JourneyResource {
 
     @GET
-    @Path("/{journeyId}")
+    @Path("/{creatorId}/{journeyId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getJourney(@PathParam("journeyId") String journeyId) {
-        APIResponse response = new APIResponse(JourneyService.getJourney(journeyId));
+    public String getJourney(@PathParam("creatorId") String creatorId, @PathParam("journeyId") String journeyId) {
+        APIResponse response = new APIResponse(JourneyService.getJourney(creatorId, journeyId));
         return response.serialize();
     }
 
     @GET
+    @Path("/{creatorId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getJourneys() {
-        APIResponse response = new APIResponse(JourneyService.getJourney());
+    public String getJourneys(@PathParam("creatorId") String creatorId) {
+        APIResponse response = new APIResponse(JourneyService.getJourneys(creatorId));
         return response.serialize();
     }
 
@@ -37,8 +38,8 @@ public class JourneyResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public String postJourney(String journeyData) {
-        ArrayList<Object> jList = JacksonService.readValue(journeyData, Journey.class);
-        APIResponse response = new APIResponse(JourneyService.postJourney(jList));
+        Object j = JacksonService.readValue(journeyData, Journey.class);
+        APIResponse response = new APIResponse(JourneyService.postJourney(j));
         return response.serialize();
     }
 
@@ -46,17 +47,15 @@ public class JourneyResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public String updateJourney(String journeyData) {
-        ArrayList<Object> jList = JacksonService.readValue(journeyData, Journey.class);
-        APIResponse response = new APIResponse(JourneyService.updateJourney(jList));
+        Object j = JacksonService.readValue(journeyData, Journey.class);
+        APIResponse response = new APIResponse(JourneyService.updateJourney(j));
         return response.serialize();
     }
 
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    public String deleteJourney(String journeyData){
-        ArrayList<Object> jList = JacksonService.readValue(journeyData, Journey.class);
-        APIResponse response = new APIResponse(JourneyService.deleteJourney(jList));
+    public String deleteJourney(String journeyId) {
+        APIResponse response = new APIResponse(JourneyService.deleteJourney(journeyId));
         return response.serialize();
     }
 }

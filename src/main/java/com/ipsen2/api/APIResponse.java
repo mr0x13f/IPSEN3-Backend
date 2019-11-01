@@ -38,6 +38,16 @@ public class APIResponse {
     @JsonProperty("data")
     public ArrayList<Object> data;
 
+    public APIResponse(Object[] objList) {
+        this.success = true;
+        this.code = 0;
+        this.message = "OK";
+        this.data = new ArrayList<>();
+        for(Object o : objList) {
+            this.data.add(o);
+        }
+    }
+
     /** Create API response.
      * The 'success' field will be set to <b>true</b>.
      *

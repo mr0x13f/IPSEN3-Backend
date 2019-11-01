@@ -21,15 +21,15 @@ public class ProjectService {
         return ProjectDAO.getProject(null);
     }
 
-    public static String postProject(ArrayList<Object> pList) {
-        return ProjectDAO.postProject(pList);
+    public static String postProject(Object p) {
+        return ProjectDAO.postProject(p);
     }
 
-    public static String updateProject(ArrayList<Object> pList) {
-        return ProjectDAO.updateProject(pList);
+    public static String updateProject(Object p) {
+        return ProjectDAO.updateProject(p);
     }
 
-    public static String deleteProject(ArrayList<Object> pList) {
-        return ProjectDAO.deleteProject(pList);
+    public static String deleteProject(String projectId) {
+        return ProjectDAO.deleteProject(projectId);
     }
 }
