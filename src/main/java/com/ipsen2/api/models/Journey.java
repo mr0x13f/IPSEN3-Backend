@@ -41,8 +41,7 @@ public class Journey {
                    @JsonProperty("description") String description, @JsonProperty("date") String date,
                    @JsonProperty("licensePlate") String licensePlate, @JsonProperty("isBilled") boolean isBilled,
                    @JsonProperty("parkingCost") double parkingCost, @JsonProperty("otherCost") double otherCost,
-                   @JsonProperty("rate") double rate, @JsonProperty("projectId") String projectId,
-                   @JsonProperty("creatorId") String creatorId) {
+                   @JsonProperty("rate") double rate, @JsonProperty("projectId") String projectId) {
 
         this.kilometers = kilometers;
         this.destination = destination;
@@ -54,7 +53,6 @@ public class Journey {
         this.otherCost = otherCost;
         this.rate = rate;
         this.projectId = projectId;
-        this.creatorId = creatorId;
 
     }
 
@@ -121,5 +119,13 @@ public class Journey {
 
     public String getCreatorId() {
         return creatorId;
+    }
+
+    public void setCreatorId(String creatorId) {
+        this.creatorId = creatorId;
+    }
+
+    public void setJourneyId(String journeyId) {
+        this.journeyId = journeyId;
     }
 }
