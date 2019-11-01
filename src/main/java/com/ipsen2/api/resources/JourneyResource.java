@@ -2,8 +2,10 @@ package com.ipsen2.api.resources;
 
 import com.ipsen2.api.APIResponse;
 import com.ipsen2.api.models.Journey;
+import com.ipsen2.api.models.User;
 import com.ipsen2.api.services.JacksonService;
 import com.ipsen2.api.services.JourneyService;
+import io.dropwizard.auth.Auth;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;

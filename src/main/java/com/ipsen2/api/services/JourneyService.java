@@ -2,6 +2,7 @@ package com.ipsen2.api.services;
 
 import com.ipsen2.api.dao.JourneyDAO;
 import com.ipsen2.api.models.Journey;
+import com.ipsen2.api.models.User;
 
 import java.util.ArrayList;
 
