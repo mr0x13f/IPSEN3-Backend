@@ -21,18 +21,17 @@ import java.util.ArrayList;
 public class JourneyResource {
 
     @GET
-    @Path("/{creatorId}/{journeyId}")
+    @Path("/{journeyId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getJourney(@PathParam("creatorId") String creatorId, @PathParam("journeyId") String journeyId) {
-        APIResponse response = new APIResponse(JourneyService.getJourney(creatorId, journeyId));
+    public String getJourney(@Auth User user, @PathParam("journeyId") String journeyId) {
+        APIResponse response = new APIResponse(JourneyService.getJourney(user.getUserId(), journeyId));
         return response.serialize();
     }
 
     @GET
-    @Path("/{creatorId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getJourneys(@PathParam("creatorId") String creatorId) {
-        APIResponse response = new APIResponse(JourneyService.getJourneys(creatorId));
+    public String getJourneys(@Auth User user) {
+        APIResponse response = new APIResponse(JourneyService.getJourneys(user.getUserId()));
         return response.serialize();
     }
 

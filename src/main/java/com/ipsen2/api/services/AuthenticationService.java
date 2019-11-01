@@ -9,9 +9,9 @@ import java.util.Optional;
 public class AuthenticationService implements Authenticator<BasicCredentials, User> {
 
     @Override
-    public Optional<User> authenticate(BasicCredentials credentials) {
+    public Optional<User> authenticate(BasicCredentials credential) {
 
-        return UserService.getUser(credentials);
+        return UserService.getUser(credential);
 
     }
 }
