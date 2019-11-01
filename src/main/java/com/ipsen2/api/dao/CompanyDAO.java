@@ -26,7 +26,7 @@ public class CompanyDAO {
                 while (rs.next()) {
                     String companyId = rs.getString("companyId");
                     String name = rs.getString("name");
-                    companyList.add(new Company(companyId, name));
+                    companyList.add(new Company(name));
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -41,7 +41,7 @@ public class CompanyDAO {
                     rs.next();
                     String companyId = rs.getString("companyId");
                     String name = rs.getString("name");
-                    companyList.add(new Company(companyId, name));
+                    companyList.add(new Company(name));
             }
             catch(java.sql.SQLException e) {
                 e.printStackTrace();
@@ -50,16 +50,13 @@ public class CompanyDAO {
         return companyList;
     }
 
-    public static String postCompany(ArrayList<Object> cList) {
+    public static String postCompany(Object c) {
         try {
-            for (Object o : cList) {
-                Company c = (Company) o;
-                String query = "INSERT INTO companies VALUES(?,?);";
-                PreparedStatement ps = DatabaseService.prepareQuery(query);
-                ps.setString( 1, c.getCompanyId());
-                ps.setString( 2, c.getName());
-                DatabaseService.executeQuery(ps);
-            }
+            Company company = (Company) c;
+            String query = "INSERT INTO companies (name) VALUES(?);";
+            PreparedStatement ps = DatabaseService.prepareQuery(query);
+            ps.setString( 1, company.getName());
+            DatabaseService.executeQuery(ps);
             return "200 OK";
         }
         catch (java.sql.SQLException e) {
@@ -67,16 +64,14 @@ public class CompanyDAO {
         }
     }
 
-    public static String updateCompany(ArrayList<Object> cList) {
+    public static String updateCompany(Object c) {
         try {
-            for(Object o : cList) {
-                Company c = (Company) o;
-                String query = "UPDATE companies SET name = ? WHERE companyId = ?;";
-                PreparedStatement ps = DatabaseService.prepareQuery(query);
-                ps.setString(1, c.getName());
-                ps.setString(2, c.getCompanyId());
-                DatabaseService.executeQuery(ps);
-            }
+            Company company = (Company) c;
+            String query = "UPDATE companies SET name = ? WHERE companyId = ?;";
+            PreparedStatement ps = DatabaseService.prepareQuery(query);
+            ps.setString(1, company.getName());
+            ps.setString(2, company.getCompanyId());
+            DatabaseService.executeQuery(ps);
             return "200 OK";
         }
         catch(java.sql.SQLException e) {
@@ -84,15 +79,12 @@ public class CompanyDAO {
         }
     }
 
-    public static String deleteCompany(ArrayList<Object> cList) {
+    public static String deleteCompany(String companyId) {
         try{
-            for(Object o: cList) {
-                Company c = (Company) o;
-                String query = "DELETE FROM companies WHERE companyId = ?;";
-                PreparedStatement ps = DatabaseService.prepareQuery(query);
-                ps.setString(1, c.getCompanyId());
-                DatabaseService.executeQuery(ps);
-            }
+            String query = "DELETE FROM companies WHERE companyId = ?;";
+            PreparedStatement ps = DatabaseService.prepareQuery(query);
+            ps.setString(1, companyId);
+            DatabaseService.executeQuery(ps);
             return "200 OK";
         }
         catch(java.sql.SQLException e) {

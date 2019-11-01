@@ -1,6 +1,9 @@
 package com.ipsen2.api.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
  * Model containing data about a certain project.
@@ -17,7 +20,9 @@ public class Project {
     @JsonProperty("companyId")
     private String companyId;
 
-    public Project(String projectId, String name, String companyId) {
+    @JsonCreator()
+    public Project(@JsonProperty("projectId") String projectId, @JsonProperty("name") String name,
+                   @JsonProperty("companyId") String companyId) {
         this.projectId = projectId;
         this.name = name;
         this.companyId = companyId;

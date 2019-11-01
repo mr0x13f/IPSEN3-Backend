@@ -30,7 +30,8 @@ public class DatabaseService {
     public static PreparedStatement prepareQuery(String query) {
         PreparedStatement ps = null;
         try {
-            con = DriverManager.getConnection("jdbc:postgresql://83.86.21.169:5432/ipsen2", "iipsen2", "VPX3zd4a");
+            con = DriverManager.getConnection("jdbc:postgresql://83.86.21.169:5432/ipsen2", "API",
+                    "fyNY7cMuB5VGVf9FfxP6");
             ps = con.prepareStatement(query);
         } catch (SQLException e) {
             e.printStackTrace();

@@ -37,8 +37,8 @@ public class CompanyResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public static String postCompany(String companyData) {
-        ArrayList<Object> cList = JacksonService.readValue(companyData, Company.class);
-        APIResponse response = new APIResponse(CompanyService.postCompany(cList));
+        Object c = JacksonService.readValue(companyData, Company.class);
+        APIResponse response = new APIResponse(CompanyService.postCompany(c));
         return response.serialize();
     }
 
@@ -46,17 +46,17 @@ public class CompanyResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public static String updateCompany(String companyData) {
-        ArrayList<Object> cList = JacksonService.readValue(companyData, Company.class);
-        APIResponse response = new APIResponse(CompanyService.updateCompany(cList));
+        Object c = JacksonService.readValue(companyData, Company.class);
+        APIResponse response = new APIResponse(CompanyService.updateCompany(c));
         return response.serialize();
     }
 
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public static String deleteCompany(String companyData) {
-        ArrayList<Object> cList = JacksonService.readValue(companyData, Company.class);
-        APIResponse response = new APIResponse(CompanyService.deleteCompany(cList));
+    @Path("/{companyId}")
+    public static String deleteCompany(@PathParam("companyId") String companyId) {
+        APIResponse response = new APIResponse(CompanyService.deleteCompany(companyId));
         return response.serialize();
     }
 

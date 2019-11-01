@@ -1,5 +1,6 @@
 package com.ipsen2.api.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
@@ -35,7 +36,30 @@ public class Journey {
     @JsonProperty("creatorId")
     private String creatorId;
 
-    public Journey(String journeyId, int kilometers, String destination, String description, String date, String licensePlate, boolean isBilled, double parkingCost, double otherCost, double rate, String projectId, String creatorId) {
+    @JsonCreator
+    public Journey(@JsonProperty("kilometers") int kilometers, @JsonProperty("destination") String destination,
+                   @JsonProperty("description") String description, @JsonProperty("date") String date,
+                   @JsonProperty("licensePlate") String licensePlate, @JsonProperty("isBilled") boolean isBilled,
+                   @JsonProperty("parkingCost") double parkingCost, @JsonProperty("otherCost") double otherCost,
+                   @JsonProperty("rate") double rate, @JsonProperty("projectId") String projectId,
+                   @JsonProperty("creatorId") String creatorId) {
+
+        this.kilometers = kilometers;
+        this.destination = destination;
+        this.description = description;
+        this.date = date;
+        this.licensePlate = licensePlate;
+        this.isBilled = isBilled;
+        this.parkingCost = parkingCost;
+        this.otherCost = otherCost;
+        this.rate = rate;
+        this.projectId = projectId;
+        this.creatorId = creatorId;
+
+    }
+
+    public Journey(String journeyId, int kilometers, String destination, String description, String date, String licensePlate,
+                   boolean isBilled, double parkingCost, double otherCost, double rate, String projectId, String creatorId) {
 
         this.journeyId = journeyId;
         this.kilometers = kilometers;

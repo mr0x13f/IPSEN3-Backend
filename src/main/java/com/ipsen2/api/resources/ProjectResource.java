@@ -20,7 +20,7 @@ public class ProjectResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public String getProject() {
+    public String getAllProjects() {
         APIResponse response = new APIResponse(ProjectService.getProject());
         return response.serialize();
     }
@@ -36,8 +36,8 @@ public class ProjectResource {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     public String postProject(String projectData) {
-        ArrayList<Object> pList = JacksonService.readValue(projectData, Project.class);
-        APIResponse response = new APIResponse(ProjectService.postProject(pList));
+        Object p = JacksonService.readValue(projectData, Project.class);
+        APIResponse response = new APIResponse(ProjectService.postProject(p));
         return response.serialize();
     }
 
@@ -45,17 +45,16 @@ public class ProjectResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public String updateProject(String projectData) {
-        ArrayList<Object> pList = JacksonService.readValue(projectData, Project.class);
-        APIResponse response = new APIResponse(ProjectService.updateProject(pList));
+        Object p = JacksonService.readValue(projectData, Project.class);
+        APIResponse response = new APIResponse(ProjectService.updateProject(p));
         return response.serialize();
     }
 
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public String deleteProject(String projectData) {
-        ArrayList<Object> pList = JacksonService.readValue(projectData, Project.class);
-        APIResponse response = new APIResponse(ProjectService.deleteProject(pList));
+    public String deleteProject(String projectId) {
+        APIResponse response = new APIResponse(ProjectService.deleteProject(projectId));
         return response.serialize();
     }
 }

@@ -21,15 +21,15 @@ public class CompanyService {
         return CompanyDAO.getCompany(companyId);
     }
 
-    public static String postCompany(ArrayList<Object> cList) {
-        return CompanyDAO.postCompany(cList);
+    public static String postCompany(Object c) {
+        return CompanyDAO.postCompany(c);
     }
 
-    public static String updateCompany(ArrayList<Object> cList) {
-        return CompanyDAO.updateCompany(cList);
+    public static String updateCompany(Object c) {
+        return CompanyDAO.updateCompany(c);
     }
 
-    public static String deleteCompany(ArrayList<Object> cList) {
-        return CompanyDAO.deleteCompany(cList);
+    public static String deleteCompany(String companyId) {
+        return CompanyDAO.deleteCompany(companyId);
     }
 }
