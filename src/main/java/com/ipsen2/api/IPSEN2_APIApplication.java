@@ -7,6 +7,7 @@ import io.dropwizard.Application;
 import io.dropwizard.auth.AuthDynamicFeature;
 import io.dropwizard.auth.AuthValueFactoryProvider;
 import io.dropwizard.auth.basic.BasicCredentialAuthFilter;
+import io.dropwizard.configuration.ResourceConfigurationSourceProvider;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 
@@ -23,7 +24,8 @@ public class IPSEN2_APIApplication extends Application<IPSEN2_APIConfiguration> 
 
     @Override
     public void initialize(final Bootstrap<IPSEN2_APIConfiguration> bootstrap) {
-        // TODO: application initialization
+        bootstrap.setConfigurationSourceProvider(
+            new ResourceConfigurationSourceProvider());
     }
 
     @Override

@@ -38,25 +38,30 @@ public class JourneyResource {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public String postJourney(String journeyData) {
-        Object j = JacksonService.readValue(journeyData, Journey.class);
+    public String postJourney(@Auth User user,String journeyData) {
+        Journey j = (Journey) JacksonService.readValue(journeyData, Journey.class);
+        j.setCreatorId(user.getUserId());
         APIResponse response = new APIResponse(JourneyService.postJourney(j));
         return response.serialize();
     }
 
     @PUT
+    @Path("/{journeyId}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public String updateJourney(String journeyData) {
-        Object j = JacksonService.readValue(journeyData, Journey.class);
+    public String updateJourney(@Auth User user, @PathParam("journeyId") String journeyId, String journeyData) {
+        Journey j = (Journey) JacksonService.readValue(journeyData, Journey.class);
+        j.setCreatorId(user.getUserId());
+        j.setJourneyId(journeyId);
         APIResponse response = new APIResponse(JourneyService.updateJourney(j));
         return response.serialize();
     }
 
     @DELETE
+    @Path("/{journeyId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String deleteJourney(String journeyId) {
-        APIResponse response = new APIResponse(JourneyService.deleteJourney(journeyId));
+    public String deleteJourney(@Auth User user, @PathParam("journeyId") String journeyId) {
+        APIResponse response = new APIResponse(JourneyService.deleteJourney(user.getUserId(), journeyId));
         return response.serialize();
     }
 }
