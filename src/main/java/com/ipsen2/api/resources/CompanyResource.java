@@ -15,7 +15,7 @@ import java.util.ArrayList;
  * Resource class for handling requests revolving companies.
  *
  * @author TimvHal, Tim W
- * @version 28/10/2019
+ * @version 03/11/2019
  */
 @Path("/company")
 public class CompanyResource {
