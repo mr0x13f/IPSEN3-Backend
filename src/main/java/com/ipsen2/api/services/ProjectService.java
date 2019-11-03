@@ -9,23 +9,23 @@ import java.util.ArrayList;
  * Service for handling and completing requests revolving projects.
  *
  * @author TimvHal
- * @version 28/10/2019
+ * @version 03/11/2019
  */
 public class ProjectService {
 
-    public static ArrayList<Project> getProject(String projectId) {
+    public static Project getProject(String projectId) {
         return ProjectDAO.getProject(projectId);
     }
 
-    public static ArrayList<Project> getProject() {
-        return ProjectDAO.getProject(null);
+    public static Project[] getProjects() {
+        return ProjectDAO.getProjects();
     }
 
-    public static String postProject(Object p) {
+    public static String postProject(Project p) {
         return ProjectDAO.postProject(p);
     }
 
-    public static String updateProject(Object p) {
+    public static String updateProject(Project p) {
         return ProjectDAO.updateProject(p);
     }
 

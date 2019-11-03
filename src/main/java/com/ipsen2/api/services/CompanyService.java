@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * Service for handling and completing requests revolving companies.
  *
  * @author TimvHal
- * @version 28/10/2019
+ * @version 03/11/2019
  */
 public class CompanyService {
 
