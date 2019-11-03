@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.UUID;
 
 /**
  * Class for interacting with database revolving Companies.
@@ -16,46 +17,46 @@ import java.util.ArrayList;
  */
 public class CompanyDAO {
 
-    public static ArrayList<Company> getCompany(String id) {
-        ArrayList<Company> companyList = new ArrayList<>();
-        //Checks if an Id exists. If no specific Id is given, it will retrieve all companies available.
-        if(id == null) {
+    public static Company getCompany(String companyId) {
+        String name = "";
+        try {
+            PreparedStatement ps = DatabaseService.prepareQuery("SELECT * FROM companies WHERE company_id = ?;");
+            ps.setObject(1, UUID.fromString(companyId));
+            ResultSet rs = DatabaseService.executeQuery(ps);
+
+            while(rs.next()) {
+                name = rs.getString("name");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return new Company(companyId, name);
+    }
+    public static Company[] getCompanies() {
+        ArrayList<Company> cList = new ArrayList<>();
+        try {
             PreparedStatement ps = DatabaseService.prepareQuery("SELECT * FROM companies;");
             ResultSet rs = DatabaseService.executeQuery(ps);
-            try {
-                while (rs.next()) {
-                    String companyId = rs.getString("companyId");
-                    String name = rs.getString("name");
-                    companyList.add(new Company(name));
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
+            while(rs.next()) {
+                String companyId = rs.getString("company_id");
+                String name = rs.getString("name");
+                cList.add(new Company(companyId, name));
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        //If the ArrayList does exist, it loops through it to obtain specific companyId's and only retrieve the companies with said Id.
-        else {
-            try {
-                    PreparedStatement ps = DatabaseService.prepareQuery("SELECT * FROM companies WHERE companyId = ?;");
-                    ps.setString(1, id);
-                    ResultSet rs = DatabaseService.executeQuery(ps);
-                    rs.next();
-                    String companyId = rs.getString("companyId");
-                    String name = rs.getString("name");
-                    companyList.add(new Company(name));
-            }
-            catch(java.sql.SQLException e) {
-                e.printStackTrace();
-            }
+        Company[] cArray = new Company[cList.size()];
+        for(int i = 0; i < cList.size(); i++) {
+            cArray[i] = cList.get(i);
         }
-        return companyList;
+        return cArray;
     }
 
-    public static String postCompany(Object c) {
+    public static String postCompany(Company c) {
         try {
-            Company company = (Company) c;
             String query = "INSERT INTO companies (name) VALUES(?);";
             PreparedStatement ps = DatabaseService.prepareQuery(query);
-            ps.setString( 1, company.getName());
+            ps.setString( 1, c.getName());
             DatabaseService.executeQuery(ps);
             return "200 OK";
         }
@@ -64,13 +65,12 @@ public class CompanyDAO {
         }
     }
 
-    public static String updateCompany(Object c) {
+    public static String updateCompany(Company c) {
         try {
-            Company company = (Company) c;
-            String query = "UPDATE companies SET name = ? WHERE companyId = ?;";
+            String query = "UPDATE companies SET name = ? WHERE company_id = ?;";
             PreparedStatement ps = DatabaseService.prepareQuery(query);
-            ps.setString(1, company.getName());
-            ps.setString(2, company.getCompanyId());
+            ps.setString(1, c.getName());
+            ps.setObject(2, UUID.fromString(c.getCompanyId()));
             DatabaseService.executeQuery(ps);
             return "200 OK";
         }
@@ -81,9 +81,9 @@ public class CompanyDAO {
 
     public static String deleteCompany(String companyId) {
         try{
-            String query = "DELETE FROM companies WHERE companyId = ?;";
+            String query = "DELETE FROM companies WHERE company_id = ?;";
             PreparedStatement ps = DatabaseService.prepareQuery(query);
-            ps.setString(1, companyId);
+            ps.setObject(1, UUID.fromString(companyId));
             DatabaseService.executeQuery(ps);
             return "200 OK";
         }
@@ -93,4 +93,6 @@ public class CompanyDAO {
         }
 
     }
+
+
 }
