@@ -13,19 +13,19 @@ import java.util.ArrayList;
  */
 public class CompanyService {
 
-    public static ArrayList<Company> getCompany() {
-        return CompanyDAO.getCompany(null);
-    }
-
-    public static ArrayList<Company> getCompany(String companyId) {
+    public static Company getCompany(String companyId) {
         return CompanyDAO.getCompany(companyId);
     }
 
-    public static String postCompany(Object c) {
+    public static Company[] getCompanies() {
+        return CompanyDAO.getCompanies();
+    }
+
+    public static String postCompany(Company c) {
         return CompanyDAO.postCompany(c);
     }
 
-    public static String updateCompany(Object c) {
+    public static String updateCompany(Company c) {
         return CompanyDAO.updateCompany(c);
     }
 

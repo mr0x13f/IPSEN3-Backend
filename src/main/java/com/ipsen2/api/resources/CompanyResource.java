@@ -2,8 +2,10 @@ package com.ipsen2.api.resources;
 
 import com.ipsen2.api.APIResponse;
 import com.ipsen2.api.models.Company;
+import com.ipsen2.api.models.User;
 import com.ipsen2.api.services.CompanyService;
 import com.ipsen2.api.services.JacksonService;
+import io.dropwizard.auth.Auth;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -21,41 +23,43 @@ public class CompanyResource {
     @GET
     @Path("/{companyId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public static String getCompany(@PathParam("companyId") String companyId) {
+    public static String getCompany(@Auth User user, @PathParam("companyId") String companyId) {
         APIResponse response = new APIResponse(CompanyService.getCompany(companyId));
         return response.serialize();
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public static String getAllCompanies() {
-        APIResponse response = new APIResponse(CompanyService.getCompany());
+    public static String getCompanies(@Auth User user) {
+        APIResponse response = new APIResponse(CompanyService.getCompanies());
         return response.serialize();
     }
 
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public static String postCompany(String companyData) {
-        Object c = JacksonService.readValue(companyData, Company.class);
+    public static String postCompany(@Auth User user, String companyData) {
+        Company c = (Company) JacksonService.readValue(companyData, Company.class);
         APIResponse response = new APIResponse(CompanyService.postCompany(c));
         return response.serialize();
     }
 
     @PUT
+    @Path("/{companyId}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public static String updateCompany(String companyData) {
-        Object c = JacksonService.readValue(companyData, Company.class);
+    public static String updateCompany(@Auth User user, @PathParam("companyId") String companyId, String companyData) {
+        Company c = (Company) JacksonService.readValue(companyData, Company.class);
+        c.setCompanyId(companyId);
         APIResponse response = new APIResponse(CompanyService.updateCompany(c));
         return response.serialize();
     }
 
     @DELETE
+    @Path("/{companyId}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    @Path("/{companyId}")
-    public static String deleteCompany(@PathParam("companyId") String companyId) {
+    public static String deleteCompany(@Auth User user, @PathParam("companyId") String companyId) {
         APIResponse response = new APIResponse(CompanyService.deleteCompany(companyId));
         return response.serialize();
     }
