@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
  * Model containing data about a certain project.
  *
  * @author TimvHal, Tim W
- * @version 14/10/2019
+ * @version 03/11/2019
  */
 public class Project {
 
@@ -21,8 +21,12 @@ public class Project {
     private String companyId;
 
     @JsonCreator()
-    public Project(@JsonProperty("projectId") String projectId, @JsonProperty("name") String name,
-                   @JsonProperty("companyId") String companyId) {
+    public Project(@JsonProperty("name") String name, @JsonProperty("companyId") String companyId) {
+        this.name = name;
+        this.companyId = companyId;
+    }
+
+    public Project(String projectId, String name, String companyId) {
         this.projectId = projectId;
         this.name = name;
         this.companyId = companyId;
@@ -38,5 +42,9 @@ public class Project {
 
     public String getCompanyId() {
         return this.companyId;
+    }
+
+    public void setProjectId(String projectId) {
+        this.projectId = projectId;
     }
 }
