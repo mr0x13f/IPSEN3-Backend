@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * Model containing data about a certain company.
  *
  * @author TimvHal, Tim W
- * @version 14/10/2019
+ * @version 03/11/2019
  */
 public class Company {
 
@@ -15,14 +15,6 @@ public class Company {
     private String companyId;
     @JsonProperty("name")
     private String name;
-
-/*
-    @JsonCreator
-    public Company(@JsonProperty("companyId") String companyId, @JsonProperty("name") String name) {
-        this.companyId = companyId;
-        this.name = name;
-    }
-*/
 
     @JsonCreator
     public Company(@JsonProperty("name") String name) {
@@ -42,5 +34,9 @@ public class Company {
 
     public String getName() {
         return this.name;
+    }
+
+    public void setCompanyId(String companyId) {
+        this.companyId = companyId;
     }
 }
