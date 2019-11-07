@@ -8,17 +8,24 @@ import io.dropwizard.auth.basic.BasicCredentials;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Optional;
 
 /**
  * Class for interacting with database revolving Users.
  *
- * @author TimvHal
+ * @author TimvHal, Tim W
  * @version 28/10/2019
  */
 public class UserDAO {
 
+    /**
+     * Authenticate existing user
+     *
+     * @param credentials
+     * @return (Optional) user object
+     * @author Tim W
+     * @version 30/10/2019
+     */
     public static Optional<User> getUser(BasicCredentials credentials) {
         try {
             PreparedStatement ps = DatabaseService.prepareQuery(
@@ -30,12 +37,10 @@ public class UserDAO {
             ps.setString(2, credentials.getPassword());
 
             ResultSet rs = DatabaseService.executeQuery(ps);
-            ArrayList<User> userList = new ArrayList<>();
 
             String userId = "";
             String email = "";
             String name = "";
-
 
             int resultCount = 0;
             while(rs.next()) {
@@ -59,6 +64,12 @@ public class UserDAO {
         }
     }
 
+    /** Register new user
+     *
+     * @param registerForm
+     * @author Tim W
+     * @version 30/10/2019
+     */
     public static void registerUser(RegisterForm registerForm) {
         try {
             PreparedStatement ps = DatabaseService.prepareQuery(
