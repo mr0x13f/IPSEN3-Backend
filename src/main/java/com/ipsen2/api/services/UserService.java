@@ -14,7 +14,7 @@ import java.util.Optional;
 /**
  * Service for handling and completing requests revolving users.
  *
- * @author TimvHal
+ * @author TimvHal, Tim W
  * @version 28/10/2019
  */
 public class UserService {
@@ -23,25 +23,18 @@ public class UserService {
         return UserDAO.getUser(credentials);
     }
 
-    public static void registerUser(String registerData) {
+    public static boolean registerUser(String registerData) {
 
-        // TIJDELIJK totdat Jacksonservice wordt geupdate
+        RegisterForm registerForm = (RegisterForm) JacksonService.readValue(registerData, RegisterForm.class);
 
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            RegisterForm registerForm = mapper.readValue(registerData, mapper.getTypeFactory().constructType(RegisterForm.class));
-
-            if (registerForm.getPassword().length() < 8
-            || registerForm.getName().length() < 2
-            || !registerForm.getEmail().contains("@")) {
-                return; // Foutieve registratie
-            }
-
-            UserDAO.registerUser(registerForm);
-
-        }catch(com.fasterxml.jackson.core.JsonProcessingException e) {
-            e.printStackTrace();
+        if (registerForm.getPassword().length() < 8
+                || registerForm.getName().length() < 2
+                || !registerForm.getEmail().contains("@")) {
+            return false; // Foutieve registratie
         }
+
+        UserDAO.registerUser(registerForm);
+        return true; // Successvolle registratie
 
     }
 

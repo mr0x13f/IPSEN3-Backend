@@ -6,6 +6,12 @@ import io.dropwizard.auth.Authenticator;
 
 import java.util.Optional;
 
+/**
+ * Service used by DropWizard to resolve basic authentication.
+ *
+ * @author Tim W
+ * @version 03/11/2019
+ */
 public class AuthenticationService implements Authenticator<BasicCredentials, User> {
 
     @Override
