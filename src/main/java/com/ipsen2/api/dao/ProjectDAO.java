@@ -1,11 +1,8 @@
 package com.ipsen2.api.dao;
 
-import com.ipsen2.api.models.Company;
-import com.ipsen2.api.models.Journey;
 import com.ipsen2.api.models.Project;
 import com.ipsen2.api.services.DatabaseService;
 
-import java.sql.Array;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,7 +12,7 @@ import java.util.UUID;
 /**
  * Class for interacting with database revolving Projects.
  *
- * @author TimvHal
+ * @author TimvHal, Tim W
  * @version 03/11/2019
  */
 public class ProjectDAO {

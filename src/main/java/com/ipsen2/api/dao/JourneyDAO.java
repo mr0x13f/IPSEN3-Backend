@@ -1,8 +1,6 @@
 package com.ipsen2.api.dao;
 
-import com.ipsen2.api.models.Company;
 import com.ipsen2.api.models.Journey;
-import com.ipsen2.api.models.User;
 import com.ipsen2.api.services.DatabaseService;
 
 import java.sql.PreparedStatement;
@@ -18,13 +16,14 @@ import java.util.UUID;
 /**
  * Class for interacting with database revolving Journeys.
  *
- * @author TimvHal
+ * @author TimvHal, Tim W
  * @version 28/10/2019
  */
 public class JourneyDAO {
 
     /**
      * Returns a single Journey.
+     *
      * @param creatorId as user identifier.
      * @param journeyId as journey identifier.
      * @return a Journey.
@@ -64,6 +63,7 @@ public class JourneyDAO {
 
     /**
      * Returns all journeys owned by a user.
+     *
      * @param creatorId as user identifier.
      * @return a Journey[].
      * @author TimvHal

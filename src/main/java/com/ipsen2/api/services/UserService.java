@@ -14,7 +14,7 @@ import java.util.Optional;
 /**
  * Service for handling and completing requests revolving users.
  *
- * @author TimvHal
+ * @author TimvHal, Tim W
  * @version 28/10/2019
  */
 public class UserService {

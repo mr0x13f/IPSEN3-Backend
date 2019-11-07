@@ -26,8 +26,6 @@ public class Company {
         this.name = name;
     }
 
-
-
     public String getCompanyId() {
         return this.companyId;
     }

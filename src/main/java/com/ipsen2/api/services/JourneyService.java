@@ -9,7 +9,7 @@ import java.util.ArrayList;
 /**
  * Service for handling and completing requests revolving journeys.
  *
- * @author TimvHal
+ * @author TimvHal, Tim W
  * @version 28/10/2019
  */
 public class JourneyService {

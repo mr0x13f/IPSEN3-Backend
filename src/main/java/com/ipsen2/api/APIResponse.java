@@ -22,7 +22,8 @@ import java.util.Arrays;
 
  */
 
-/** API response that will be serialized to JSON and sent to the client.
+/**
+ * API response that will be serialized to JSON and sent to the client.
  *
  * @author Tim W, TimvHal
  * @version 14/10/2019
@@ -48,7 +49,8 @@ public class APIResponse {
         }
     }
 
-    /** Create API response.
+    /**
+     * Create API response.
      * The 'success' field will be set to <b>true</b>.
      *
      * @param obj The object to serialize.
@@ -66,7 +68,8 @@ public class APIResponse {
 
     }
 
-    /** Create API response.
+    /**
+     * Create API response.
      * The 'success' field will be set to <b>true</b>.
      *
      * @param data The objects to serialize.
@@ -83,7 +86,8 @@ public class APIResponse {
 
     }
 
-    /** Create error response.
+    /**
+     * Create error response.
      * The 'success' field will be set to <b>false</b>.
      *
      * @param response is String-object split into an error code and message.
@@ -107,7 +111,8 @@ public class APIResponse {
 
     }
 
-    /** Serialize response to JSON string.
+    /**
+     * Serialize response to JSON string.
      *
      * @return The JSON string based on the response object.
      *
