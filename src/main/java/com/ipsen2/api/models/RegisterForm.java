@@ -2,6 +2,12 @@ package com.ipsen2.api.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * Used to read fields from registration POST body.
+ *
+ * @author Tim W
+ * @version 30/10/2019
+ */
 public class RegisterForm {
 
     @JsonProperty("email")

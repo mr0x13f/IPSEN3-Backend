@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.security.Principal;
 
 /**
- * Model containing data about a certain user.
+ * Model containing data about a certain user, retrieved from the AuthenticationService.
  *
  * @author TimvHal, Tim W
  * @version 14/10/2019

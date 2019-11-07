@@ -12,7 +12,7 @@ import java.util.UUID;
 /**
  * Class for interacting with database revolving Companies.
  *
- * @author TimvHal
+ * @author TimvHal, Tim W
  * @version 03/11/2019
  */
 public class CompanyDAO {

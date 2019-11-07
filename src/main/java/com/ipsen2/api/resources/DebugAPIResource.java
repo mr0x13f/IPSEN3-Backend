@@ -1,5 +1,6 @@
-package com.ipsen2.api;
+package com.ipsen2.api.resources;
 
+import com.ipsen2.api.APIResponse;
 import com.ipsen2.api.models.User;
 import com.ipsen2.api.services.DatabaseService;
 import io.dropwizard.auth.Auth;
@@ -13,13 +14,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-/*
-
-    Alleen ff voor testen van HTTP troep.
-    localhost:8080/debug
-
+/**
+ *  Resource class used for debugging. <b>Not for production!</b>
+ *
+ * @author TimvHal, Tim W
+ * @version 11/10/2019
  */
-
 @Path("/debug")
 public class DebugAPIResource {
 
@@ -68,6 +68,5 @@ public class DebugAPIResource {
     public String authtest(@Auth User user) {
         return "Hello secured world!";
     }
-
 
 }
