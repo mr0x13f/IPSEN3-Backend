@@ -1,6 +1,7 @@
 package com.ipsen2.api.resources;
 
 import com.ipsen2.api.APIResponse;
+import com.ipsen2.api.models.PasswordResetForm;
 import com.ipsen2.api.models.User;
 import com.ipsen2.api.services.AuthenticationService;
 import com.ipsen2.api.services.CompanyService;
@@ -50,6 +51,21 @@ public class UserResource {
     public String deleteUser(@Auth User user) {
 
         UserService.deleteUser(user);
+        APIResponse response = new APIResponse("200 OK");
+        return response.serialize();
+
+    }
+
+    @POST
+    @Path("/resetpassword")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String resetPassword(@Auth User user, String passwordResetData) {
+
+        PasswordResetForm passwordResetForm = (PasswordResetForm) JacksonService.readValue(passwordResetData, PasswordResetForm.class);
+        String newPassword = passwordResetForm.getPassword();
+        UserService.resetPassword(user, newPassword);
+
         APIResponse response = new APIResponse("200 OK");
         return response.serialize();
 
