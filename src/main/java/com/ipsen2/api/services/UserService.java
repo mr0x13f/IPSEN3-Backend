@@ -23,6 +23,8 @@ public class UserService {
         return UserDAO.getUser(credentials);
     }
 
+    public static void deleteUser(User user) { UserDAO.deleteUser(user); }
+
     public static boolean registerUser(String registerData) {
 
         RegisterForm registerForm = (RegisterForm) JacksonService.readValue(registerData, RegisterForm.class);

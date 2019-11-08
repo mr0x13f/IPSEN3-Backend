@@ -44,4 +44,14 @@ public class UserResource {
         return response.serialize();
     }
 
+    @DELETE
+    @Produces(MediaType.APPLICATION_JSON)
+    public String deleteUser(@Auth User user) {
+
+        UserService.deleteUser(user);
+        APIResponse response = new APIResponse("200 OK");
+        return response.serialize();
+
+    }
+
 }
