@@ -2,6 +2,7 @@ package com.ipsen2.api.resources;
 
 import com.ipsen2.api.APIResponse;
 import com.ipsen2.api.models.User;
+import com.ipsen2.api.services.AuthenticationService;
 import com.ipsen2.api.services.CompanyService;
 import com.ipsen2.api.services.JacksonService;
 import com.ipsen2.api.services.UserService;
