@@ -108,4 +108,25 @@ public class UserDAO {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Change a user's password
+     *
+     * @param user
+     * @param newPassword
+     */
+    public static void resetPassword(User user, String newPassword) {
+        try {
+            PreparedStatement ps = DatabaseService.prepareQuery(
+                    "UPDATE users SET password = crypt(?, gen_salt('bf')) WHERE user_id = ?;");
+
+            ps.setString(1, newPassword);
+            ps.setObject(2, UUID.fromString(user.getUserId()));
+
+            ResultSet rs = DatabaseService.executeQuery(ps);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
