@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
+import java.util.UUID;
 
 /**
  * Class for interacting with database revolving Users.
@@ -64,7 +65,8 @@ public class UserDAO {
         }
     }
 
-    /** Register new user
+    /**
+     * Register new user
      *
      * @param registerForm
      * @author Tim W
@@ -79,7 +81,26 @@ public class UserDAO {
             ps.setString(2, registerForm.getName());
             ps.setString(3, registerForm.getPassword());
 
-            System.out.println(registerForm.getEmail()+" | "+registerForm.getName()+" | "+registerForm.getPassword());
+            ResultSet rs = DatabaseService.executeQuery(ps);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Delete existing user
+     *
+     * @param user User to delete
+     * @author Tim W
+     * @version 08/11/2019
+     */
+    public static void deleteUser(User user) {
+        try {
+            PreparedStatement ps = DatabaseService.prepareQuery(
+                    "DELETE FROM users WHERE user_id = ?;");
+
+            ps.setObject(1, UUID.fromString(user.getUserId()));
 
             ResultSet rs = DatabaseService.executeQuery(ps);
 
