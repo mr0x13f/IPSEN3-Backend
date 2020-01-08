@@ -52,8 +52,9 @@ public class UserDAO {
             }
 
             if (resultCount == 1) {
-                User user = new User(userId, email, name);
-                return Optional.of(user);
+                //TODO fix
+                //User user = new User(userId, email, name);
+                //return Optional.of(user);
             } else {
                 return Optional.empty();
             }
