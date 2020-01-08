@@ -2,6 +2,7 @@ package com.ipsen2.api.dao;
 
 import com.ipsen2.api.models.RegisterForm;
 import com.ipsen2.api.models.User;
+import com.ipsen2.api.services.AuthenticationService;
 import com.ipsen2.api.services.DatabaseService;
 import io.dropwizard.auth.basic.BasicCredentials;
 
@@ -15,7 +16,7 @@ import java.util.UUID;
  * Class for interacting with database revolving Users.
  *
  * @author TimvHal, Tim W
- * @version 28/10/2019
+ * @version 08-01-2020
  */
 public class UserDAO {
 
@@ -24,24 +25,24 @@ public class UserDAO {
      *
      * @param credentials
      * @return (Optional) user object
-     * @author Tim W
-     * @version 30/10/2019
+     * @author Tim W, TimvHal
+     * @version 08-01-2020
      */
     public static Optional<User> getUser(BasicCredentials credentials) {
         try {
             PreparedStatement ps = DatabaseService.prepareQuery(
-                "SELECT u.user_id, u.email, u.name FROM users u " +
-                "WHERE u.email = ? " +
-                "AND crypt(?, u.password) = u.password;");
+                "SELECT u.user_id, u.email, u.name, u.password, u.salt FROM users u " +
+                "WHERE u.email = ?;");
 
             ps.setString(1, credentials.getUsername());
-            ps.setString(2, credentials.getPassword());
 
             ResultSet rs = DatabaseService.executeQuery(ps);
 
             String userId = "";
             String email = "";
             String name = "";
+            String password = "";
+            String salt = "";
 
             int resultCount = 0;
             while(rs.next()) {
@@ -50,10 +51,12 @@ public class UserDAO {
                 userId = rs.getString("user_id");
                 email = rs.getString("email");
                 name = rs.getString("name");
+                password = rs.getString("password");
+                salt = rs.getString("salt");
             }
 
             if (resultCount == 1) {
-                User user = new User(userId, email, name);
+                User user = new User(UUID.fromString(userId), email, name, password, salt);
                 return Optional.of(user);
             } else {
                 return Optional.empty();
@@ -68,18 +71,20 @@ public class UserDAO {
     /**
      * Register new user
      *
-     * @param registerForm
-     * @author Tim W
-     * @version 30/10/2019
+     * @param user
+     * @author Tim W, TimvHal
+     * @version 08-01-2020
      */
-    public static void registerUser(RegisterForm registerForm) {
+    public static void registerUser(User user) {
         try {
             PreparedStatement ps = DatabaseService.prepareQuery(
-                    "INSERT INTO users (email,name,password) VALUES (?,?, crypt(?, gen_salt('bf')));");
+                    "INSERT INTO users VALUES(?,?,?,?,?);");
 
-            ps.setString(1, registerForm.getEmail());
-            ps.setString(2, registerForm.getName());
-            ps.setString(3, registerForm.getPassword());
+            ps.setObject(1, user.getUserId());
+            ps.setString(2, user.getEmail());
+            ps.setString(3, user.getName());
+            ps.setString(4, user.getPassword());
+            ps.setString(5, user.getSalt());
 
             ResultSet rs = DatabaseService.executeQuery(ps);
 
@@ -100,7 +105,7 @@ public class UserDAO {
             PreparedStatement ps = DatabaseService.prepareQuery(
                     "DELETE FROM users WHERE user_id = ?;");
 
-            ps.setObject(1, UUID.fromString(user.getUserId()));
+            ps.setObject(1, user.getUserId());
 
             ResultSet rs = DatabaseService.executeQuery(ps);
 
@@ -117,11 +122,12 @@ public class UserDAO {
      */
     public static void resetPassword(User user, String newPassword) {
         try {
+            user.setPassword(AuthenticationService.hashWithSalt(user.getSalt(), newPassword));
             PreparedStatement ps = DatabaseService.prepareQuery(
-                    "UPDATE users SET password = crypt(?, gen_salt('bf')) WHERE user_id = ?;");
+                    "UPDATE users SET password = ? WHERE user_id = ?;");
 
-            ps.setString(1, newPassword);
-            ps.setObject(2, UUID.fromString(user.getUserId()));
+            ps.setString(1, user.getPassword());
+            ps.setObject(2, user.getUserId());
 
             ResultSet rs = DatabaseService.executeQuery(ps);
 

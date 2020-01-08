@@ -35,7 +35,6 @@ public class IPSEN2_APIApplication extends Application<IPSEN2_APIConfiguration> 
         // Registreer de controllers zodat DropWizard weet welke klasse de API calls verwerken.
         // We gebruiken een bulkRegister() zodat we niet knikker vaak environment.jersey().register() hoeven te callen.
         bulkRegister(environment,
-                //new DebugResource(), // TODO: Comment out in production!! ヽ(⁎˃ᆺ˂)ﾉ
                 new CompanyResource(),
                 new JourneyResource(),
                 new ProjectResource(),
