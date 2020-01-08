@@ -31,7 +31,7 @@ public class UserDAO {
     public static Optional<User> getUserById(String _userId) {
         try {
             PreparedStatement ps = DatabaseService.prepareQuery(
-                    "SELECT u.user_id, u.email, u.name FROM users u " +
+                    "SELECT u.user_id, u.email, u.name, u.password, u.salt FROM users u " +
                             "WHERE u.user_id = ? ");
 
             ps.setObject(1, UUID.fromString(_userId));
@@ -41,6 +41,8 @@ public class UserDAO {
             String userId = "";
             String email = "";
             String name = "";
+            String password = "";
+            String salt = "";
 
             int resultCount = 0;
             while(rs.next()) {
@@ -49,12 +51,13 @@ public class UserDAO {
                 userId = rs.getString("user_id");
                 email = rs.getString("email");
                 name = rs.getString("name");
+                password = rs.getString("password");
+                salt = rs.getString("salt");
             }
 
             if (resultCount == 1) {
-                //TODO fix
-                //User user = new User(userId, email, name);
-                //return Optional.of(user);
+                User user = new User(userId, email, name, password, salt);
+                return Optional.of(user);
             } else {
                 return Optional.empty();
             }
@@ -101,7 +104,7 @@ public class UserDAO {
             }
 
             if (resultCount == 1) {
-                User user = new User(UUID.fromString(userId), email, name, password, salt);
+                User user = new User(userId, email, name, password, salt);
                 return Optional.of(user);
             } else {
                 return Optional.empty();

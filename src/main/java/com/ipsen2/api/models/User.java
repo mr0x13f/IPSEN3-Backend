@@ -1,5 +1,6 @@
 package com.ipsen2.api.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.security.Principal;
@@ -14,26 +15,26 @@ import java.util.UUID;
 public class User implements Principal {
 
     @JsonProperty("userId")
-    private UUID userId;
+    private String userId;
     @JsonProperty("email")
     private String email;
     @JsonProperty("name")
     private String name;
-    @JsonProperty("password")
+    @JsonIgnore
     private String password;
-    @JsonProperty("salt")
+    @JsonIgnore
     private String salt;
 
 
 
-    public User(UUID userId, RegisterForm registerForm) {
+    public User(String userId, RegisterForm registerForm) {
         this.userId = userId;
         this.email = registerForm.getEmail();
         this.name = registerForm.getName();
         this.password = registerForm.getPassword();
     }
 
-    public User(UUID userId, String email, String name, String password, String salt) {
+    public User(String userId, String email, String name, String password, String salt) {
         this.userId = userId;
         this.email = email;
         this.name = name;
@@ -41,7 +42,7 @@ public class User implements Principal {
         this.salt = salt;
     }
 
-    public UUID getUserId() {
+    public String getUserId() {
         return userId;
     }
 
