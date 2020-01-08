@@ -14,11 +14,24 @@ import java.util.Optional;
 
 import static org.jose4j.jws.AlgorithmIdentifiers.HMAC_SHA256;
 
-
+/**
+ * Service used by DropWizard to resolve JWT authentication.
+ *
+ * @author Tim W
+ * @version 08/01/2020
+ */
 public class JwtAuthenticationService implements Authenticator<JwtContext, User> {
 
     private static byte[] secretKey;
 
+    /**
+     * Retrieve User object from JWT token
+     *
+     * @param context
+     * @return User
+     * @author Tim W
+     * @version 08/01/2020
+     */
     @Override
     public Optional<User> authenticate(JwtContext context) {
         try {
@@ -33,6 +46,14 @@ public class JwtAuthenticationService implements Authenticator<JwtContext, User>
         }
     }
 
+    /**
+     * Build JWT token from User
+     *
+     * @param user
+     * @return JsonWebSignature
+     * @author Tim W
+     * @version 08/01/2020
+     */
     public static JsonWebSignature buildToken(User user) throws NoSuchAlgorithmException {
 
         final JwtClaims claims = new JwtClaims();
@@ -48,6 +69,13 @@ public class JwtAuthenticationService implements Authenticator<JwtContext, User>
         return jws;
     }
 
+    /**
+     * Get the JWT secret key, or generate one if it hasn't been generated yet
+     *
+     * @return JWT secret key
+     * @author Tim W
+     * @version 08/01/2020
+     */
     public static byte[] getSecretKey() throws NoSuchAlgorithmException {
         if (secretKey != null) return secretKey;
 
