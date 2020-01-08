@@ -1,17 +1,19 @@
 package com.ipsen2.api.resources;
 
 import com.ipsen2.api.APIResponse;
+import com.ipsen2.api.models.BasicAuth;
+import com.ipsen2.api.models.LoginResponse;
 import com.ipsen2.api.models.PasswordResetForm;
 import com.ipsen2.api.models.User;
-import com.ipsen2.api.services.AuthenticationService;
-import com.ipsen2.api.services.CompanyService;
 import com.ipsen2.api.services.JacksonService;
+import com.ipsen2.api.services.JwtAuthenticationService;
 import com.ipsen2.api.services.UserService;
 import io.dropwizard.auth.Auth;
+import org.jose4j.lang.JoseException;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import java.util.ArrayList;
+import java.security.NoSuchAlgorithmException;
 
 /**
  * Resource class for checking requests revolving users.
@@ -23,7 +25,14 @@ import java.util.ArrayList;
 public class UserResource {
 
     @GET
-    @Path("/authenticate")
+    @Path("/token")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public LoginResponse token(@Auth BasicAuth basicAuth) throws NoSuchAlgorithmException, JoseException {
+        return new LoginResponse(JwtAuthenticationService.buildToken(basicAuth.user).getCompactSerialization());
+    }
+
+    @GET
     @Produces(MediaType.APPLICATION_JSON)
     public String getUser(@Auth User user) {
         APIResponse response = new APIResponse(user);
