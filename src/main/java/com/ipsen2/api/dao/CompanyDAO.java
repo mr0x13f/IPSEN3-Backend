@@ -32,6 +32,7 @@ public class CompanyDAO {
         }
         return new Company(companyId, name);
     }
+
     public static Company[] getCompanies() {
         ArrayList<Company> cList = new ArrayList<>();
         try {
