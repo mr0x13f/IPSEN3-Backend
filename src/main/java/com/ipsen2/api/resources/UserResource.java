@@ -69,11 +69,11 @@ public class UserResource {
     @Path("/resetpassword")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public String resetPassword(@Auth User user, String passwordResetData) {
+    public String resetPassword(@Auth BasicAuth basicAuth, String passwordResetData) {
 
         PasswordResetForm passwordResetForm = (PasswordResetForm) JacksonService.readValue(passwordResetData, PasswordResetForm.class);
         String newPassword = passwordResetForm.getPassword();
-        UserService.resetPassword(user, newPassword);
+        UserService.resetPassword(basicAuth.user, newPassword);
 
         APIResponse response = new APIResponse("200 OK");
         return response.serialize();
