@@ -20,6 +20,50 @@ import java.util.UUID;
 public class UserDAO {
 
     /**
+     * Retrieve User from database
+     *
+     * @param _userId
+     * @return (Optional) user object
+     * @author Tim W
+     * @version 08/01/2020
+     */
+    public static Optional<User> getUserById(String _userId) {
+        try {
+            PreparedStatement ps = DatabaseService.prepareQuery(
+                    "SELECT u.user_id, u.email, u.name FROM users u " +
+                            "WHERE u.user_id = ? ");
+
+            ps.setObject(1, UUID.fromString(_userId));
+
+            ResultSet rs = DatabaseService.executeQuery(ps);
+
+            String userId = "";
+            String email = "";
+            String name = "";
+
+            int resultCount = 0;
+            while(rs.next()) {
+                resultCount++;
+
+                userId = rs.getString("user_id");
+                email = rs.getString("email");
+                name = rs.getString("name");
+            }
+
+            if (resultCount == 1) {
+                User user = new User(userId, email, name);
+                return Optional.of(user);
+            } else {
+                return Optional.empty();
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return Optional.empty();
+        }
+    }
+
+    /**
      * Authenticate existing user
      *
      * @param credentials
@@ -27,7 +71,7 @@ public class UserDAO {
      * @author Tim W
      * @version 30/10/2019
      */
-    public static Optional<User> getUser(BasicCredentials credentials) {
+    public static Optional<User> getUserByCredentials(BasicCredentials credentials) {
         try {
             PreparedStatement ps = DatabaseService.prepareQuery(
                 "SELECT u.user_id, u.email, u.name FROM users u " +
