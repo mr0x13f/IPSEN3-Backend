@@ -10,6 +10,7 @@ import io.dropwizard.auth.basic.BasicCredentials;
 
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.UUID;
 
 /**
  * Service for handling and completing requests revolving users.
@@ -34,12 +35,16 @@ public class UserService {
                 || !registerForm.getEmail().contains("@")) {
             return false; // Foutieve registratie
         }
+        User user = new User(UUID.randomUUID(), registerForm);
+        user.setSalt(AuthenticationService.generateSalt());
+        user.setPassword(AuthenticationService.hashWithSalt(user.getSalt(), user.getPassword()));
 
-        UserDAO.registerUser(registerForm);
+        UserDAO.registerUser(user);
         return true; // Successvolle registratie
 
     }
 
-    public static void resetPassword(User user, String newPassword) {UserDAO.resetPassword(user, newPassword); }
+    public static void resetPassword(User user, String newPassword) {UserDAO.resetPassword(user, newPassword);
+    }
 
 }
