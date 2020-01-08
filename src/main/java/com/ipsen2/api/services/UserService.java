@@ -20,8 +20,12 @@ import java.util.UUID;
  */
 public class UserService {
 
-    public static Optional<User> getUser(BasicCredentials credentials) {
-        return UserDAO.getUser(credentials);
+    public static Optional<User> getUserByCredentials(BasicCredentials credentials) {
+        return UserDAO.getUserByCredentials(credentials);
+    }
+
+    public static Optional<User> getUserById(String userId) {
+        return UserDAO.getUserById(userId);
     }
 
     public static void deleteUser(User user) { UserDAO.deleteUser(user); }
