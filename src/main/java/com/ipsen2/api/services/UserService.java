@@ -1,14 +1,10 @@
 package com.ipsen2.api.services;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ipsen2.api.dao.UserDAO;
 import com.ipsen2.api.models.RegisterForm;
 import com.ipsen2.api.models.User;
 import io.dropwizard.auth.basic.BasicCredentials;
 
-import java.util.ArrayList;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -16,7 +12,7 @@ import java.util.UUID;
  * Service for handling and completing requests revolving users.
  *
  * @author TimvHal, Tim W
- * @version 28/10/2019
+ * @version 09-01-2020
  */
 public class UserService {
 
@@ -39,9 +35,9 @@ public class UserService {
                 || !registerForm.getEmail().contains("@")) {
             return false; // Foutieve registratie
         }
-        User user = new User(UUID.randomUUID(), registerForm);
-        user.setSalt(AuthenticationService.generateSalt());
-        user.setPassword(AuthenticationService.hashWithSalt(user.getSalt(), user.getPassword()));
+        User user = new User(UUID.randomUUID().toString(), registerForm);
+        user.setSalt(BasicAuthenticationService.generateSalt());
+        user.setPassword(BasicAuthenticationService.hashWithSalt(user.getSalt(), user.getPassword()));
 
         UserDAO.registerUser(user);
         return true; // Successvolle registratie
