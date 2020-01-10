@@ -25,13 +25,16 @@ public class BasicAuthenticationService implements Authenticator<BasicCredential
     private static Base64.Decoder decoder = Base64.getDecoder();
 
     @Override
-    public Optional<BasicAuth> authenticate(BasicCredentials credential) {
+    public Optional<BasicAuth> authenticate(BasicCredentials credentials) {
 
-        Optional<User> optionalUser = UserService.getUserByCredentials(credential);
+        Optional<User> optionalUser = UserService.getUserByCredentials(credentials);
 
         if (!optionalUser.isPresent()) return Optional.empty(); // No user with matching email found
 
         User user = optionalUser.get();
+        String saltedHash = hashWithSalt(credentials.getPassword(), user.getSalt());
+
+        if (!user.getPassword().equals(saltedHash)) return Optional.empty(); // Passwords don't match
 
         return Optional.of(new BasicAuth(user));
 
