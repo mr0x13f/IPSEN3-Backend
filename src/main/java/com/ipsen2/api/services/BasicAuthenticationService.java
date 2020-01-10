@@ -50,7 +50,7 @@ public class BasicAuthenticationService implements Authenticator<BasicCredential
         return encoder.encodeToString(seed);
     }
 
-    public static String hashWithSalt(String salt, String password) {
+    public static String hashWithSalt(String password, String salt) {
         byte[] hashedPassword = null;
         try {
             PBEKeySpec keySpec = new PBEKeySpec(password.toCharArray(), decoder.decode(salt), 65536, 128);

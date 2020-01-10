@@ -37,7 +37,7 @@ public class UserService {
         }
         User user = new User(UUID.randomUUID().toString(), registerForm);
         user.setSalt(BasicAuthenticationService.generateSalt());
-        user.setPassword(BasicAuthenticationService.hashWithSalt(user.getSalt(), user.getPassword()));
+        user.setPassword(BasicAuthenticationService.hashWithSalt(user.getPassword(), user.getSalt()));
 
         UserDAO.registerUser(user);
         return true; // Successvolle registratie
