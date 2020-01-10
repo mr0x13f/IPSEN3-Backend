@@ -2,7 +2,7 @@ package com.ipsen2.api.dao;
 
 import com.ipsen2.api.models.RegisterForm;
 import com.ipsen2.api.models.User;
-import com.ipsen2.api.services.AuthenticationService;
+import com.ipsen2.api.services.BasicAuthenticationService;
 import com.ipsen2.api.services.DatabaseService;
 import io.dropwizard.auth.basic.BasicCredentials;
 
@@ -128,7 +128,7 @@ public class UserDAO {
             PreparedStatement ps = DatabaseService.prepareQuery(
                     "INSERT INTO users VALUES(?,?,?,?,?);");
 
-            ps.setObject(1, user.getUserId());
+            ps.setObject(1, UUID.fromString(user.getUserId()));
             ps.setString(2, user.getEmail());
             ps.setString(3, user.getName());
             ps.setString(4, user.getPassword());
@@ -170,7 +170,7 @@ public class UserDAO {
      */
     public static void resetPassword(User user, String newPassword) {
         try {
-            user.setPassword(AuthenticationService.hashWithSalt(user.getSalt(), newPassword));
+            user.setPassword(BasicAuthenticationService.hashWithSalt(user.getSalt(), newPassword));
             PreparedStatement ps = DatabaseService.prepareQuery(
                     "UPDATE users SET password = ? WHERE user_id = ?;");
 
