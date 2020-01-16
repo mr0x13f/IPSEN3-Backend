@@ -55,9 +55,10 @@ public class CompanyDAO {
 
     public static String postCompany(Company c) {
         try {
-            String query = "INSERT INTO companies (name) VALUES(?);";
+            String query = "INSERT INTO companies VALUES(?,?);";
             PreparedStatement ps = DatabaseService.prepareQuery(query);
-            ps.setString( 1, c.getName());
+            ps.setObject( 1, UUID.randomUUID());
+            ps.setString( 2, c.getName());
             DatabaseService.executeQuery(ps);
             return "200 OK";
         }

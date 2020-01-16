@@ -44,8 +44,14 @@ public class DatabaseService {
         try {
             ps.execute();
             rs = ps.getResultSet();
-            } catch (SQLException ex) {
+        } catch (SQLException ex) {
             ex.printStackTrace();
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return rs;
     }

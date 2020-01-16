@@ -104,24 +104,24 @@ public class JourneyDAO {
 
     public static String postJourney(Journey journey) {
         try {
-            String query = "INSERT INTO journeys (kilometers, destination, description, date, license_plate, is_billed, " +
-                    "parking_cost, other_cost, rate, project_id, creator_id) VALUES(?,?,?,?,?,?,?,?,?,?,?);";
+            String query = "INSERT INTO journeys VALUES(?,?,?,?,?,?,?,?,?,?,?,?);";
             PreparedStatement ps = DatabaseService.prepareQuery(query);
-            ps.setInt(1, journey.getKilometers());;
-            ps.setString(2, journey.getDestination());
-            ps.setString(3, journey.getDescription());
+            ps.setObject(1, UUID.randomUUID());
+            ps.setInt(2, journey.getKilometers());
+            ps.setString(3, journey.getDestination());
+            ps.setString(4, journey.getDescription());
 
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
             Date parsedDate = dateFormat.parse(journey.getDate());
             Timestamp timestamp = new java.sql.Timestamp(parsedDate.getTime());
-            ps.setObject(4, timestamp);
-            ps.setString(5, journey.getLicensePlate());
-            ps.setBoolean(6, journey.isBilled());
-            ps.setDouble(7, journey.getParkingCost());
-            ps.setDouble(8, journey.getOtherCost());
-            ps.setDouble(9, journey.getRate());
-            ps.setObject(10, UUID.fromString(journey.getProjectId()));
-            ps.setObject(11, UUID.fromString(journey.getCreatorId()));
+            ps.setObject(5, timestamp);
+            ps.setString(6, journey.getLicensePlate());
+            ps.setBoolean(7, journey.isBilled());
+            ps.setDouble(8, journey.getParkingCost());
+            ps.setDouble(9, journey.getOtherCost());
+            ps.setDouble(10, journey.getRate());
+            ps.setObject(11, UUID.fromString(journey.getProjectId()));
+            ps.setObject(12, UUID.fromString(journey.getCreatorId()));
             DatabaseService.executeQuery(ps);
             return "200 OK";
         } catch (SQLException | ParseException e) {

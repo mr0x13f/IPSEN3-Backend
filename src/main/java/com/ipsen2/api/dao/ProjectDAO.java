@@ -59,10 +59,11 @@ public class ProjectDAO {
 
     public static String postProject(Project p) {
         try {
-            String query = "INSERT INTO projects (name, company_id) VALUES(?, ?);";
+            String query = "INSERT INTO projects VALUES(?,?,?);";
             PreparedStatement ps = DatabaseService.prepareQuery(query);
-            ps.setString( 1, p.getName());
-            ps.setObject( 2, UUID.fromString(p.getCompanyId()));
+            ps.setObject( 1, UUID.randomUUID());
+            ps.setString( 2, p.getName());
+            ps.setObject( 3, UUID.fromString(p.getCompanyId()));
             DatabaseService.executeQuery(ps);
             return "200 OK";
         } catch (java.sql.SQLException e) {
