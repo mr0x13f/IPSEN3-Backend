@@ -72,7 +72,8 @@ public class JourneyDAO {
     public static Journey[] getJourneys(String creatorId) {
         ArrayList<Journey> jList = new ArrayList<>();
         try {
-            PreparedStatement ps = DatabaseService.prepareQuery("SELECT * FROM journeys WHERE creator_id = ?;");
+            PreparedStatement ps = DatabaseService.prepareQuery("SELECT * FROM journeys WHERE creator_id = ?"+
+                    " ORDER BY date DESC;");
             ps.setObject(1, UUID.fromString(creatorId));
             ResultSet rs = DatabaseService.executeQuery(ps);
 
