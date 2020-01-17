@@ -1,10 +1,7 @@
 package com.ipsen2.api.resources;
 
 import com.ipsen2.api.APIResponse;
-import com.ipsen2.api.models.BasicAuth;
-import com.ipsen2.api.models.LoginResponse;
-import com.ipsen2.api.models.PasswordResetForm;
-import com.ipsen2.api.models.User;
+import com.ipsen2.api.models.*;
 import com.ipsen2.api.services.JacksonService;
 import com.ipsen2.api.services.JwtAuthenticationService;
 import com.ipsen2.api.services.UserService;
@@ -74,6 +71,21 @@ public class UserResource {
         PasswordResetForm passwordResetForm = (PasswordResetForm) JacksonService.readValue(passwordResetData, PasswordResetForm.class);
         String newPassword = passwordResetForm.getPassword();
         UserService.resetPassword(basicAuth.user, newPassword);
+
+        APIResponse response = new APIResponse("200 OK");
+        return response.serialize();
+
+    }
+
+    @POST
+    @Path("/changename")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String changeName(@Auth User user, String changeNameData) {
+
+        ChangeNameForm changeNameForm = (ChangeNameForm) JacksonService.readValue(changeNameData, ChangeNameForm.class);
+        String newName = changeNameForm.getName();
+        UserService.changeName(user, newName);
 
         APIResponse response = new APIResponse("200 OK");
         return response.serialize();

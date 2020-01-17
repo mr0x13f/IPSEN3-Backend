@@ -44,7 +44,12 @@ public class UserService {
 
     }
 
-    public static void resetPassword(User user, String newPassword) {UserDAO.resetPassword(user, newPassword);
+    public static void resetPassword(User user, String newPassword) {
+        UserDAO.resetPassword(user, newPassword);
+    }
+
+    public static void changeName(User user, String newName) {
+        UserDAO.changeName(user, newName);
     }
 
 }
