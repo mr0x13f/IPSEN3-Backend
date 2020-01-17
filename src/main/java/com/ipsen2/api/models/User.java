@@ -7,7 +7,7 @@ import java.security.Principal;
 import java.util.UUID;
 
 /**
- * Model containing data about a certain user, retrieved from the BasicAuthenticationService.
+ * Model containing data about a certain user, retrieved from the JWTAuthenticationService.
  *
  * @author TimvHal, Tim W
  * @version 14/10/2019

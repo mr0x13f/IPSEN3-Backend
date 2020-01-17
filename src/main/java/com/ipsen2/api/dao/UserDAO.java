@@ -153,7 +153,7 @@ public class UserDAO {
             PreparedStatement ps = DatabaseService.prepareQuery(
                     "DELETE FROM users WHERE user_id = ?;");
 
-            ps.setObject(1, user.getUserId());
+            ps.setObject(1, UUID.fromString(user.getUserId()));
 
             ResultSet rs = DatabaseService.executeQuery(ps);
 
@@ -175,7 +175,7 @@ public class UserDAO {
                     "UPDATE users SET password = ? WHERE user_id = ?;");
 
             ps.setString(1, user.getPassword());
-            ps.setObject(2, user.getUserId());
+            ps.setObject(2, UUID.fromString(user.getUserId()));
 
             ResultSet rs = DatabaseService.executeQuery(ps);
 
@@ -183,4 +183,28 @@ public class UserDAO {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Change a user's name
+     *
+     * @param user
+     * @param newName
+     * @author Tim W
+     * @version 17/01/2020
+     */
+    public static void changeName(User user, String newName) {
+        try {
+            PreparedStatement ps = DatabaseService.prepareQuery(
+                    "UPDATE users SET name = ? WHERE user_id = ?;");
+
+            ps.setString(1, newName);
+            ps.setObject(2, UUID.fromString(user.getUserId()));
+
+            ResultSet rs = DatabaseService.executeQuery(ps);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
