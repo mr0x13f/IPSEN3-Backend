@@ -33,4 +33,8 @@ public class JourneyService {
     public static String deleteJourney(String creatorId, String journeyId) {
         return JourneyDAO.deleteJourney(creatorId, journeyId);
     }
+
+    public static String deleteAll(String creatorId) {
+        return JourneyDAO.deleteAll(creatorId);
+    }
 }

@@ -1,5 +1,6 @@
 package com.ipsen2.api.services;
 
+import com.ipsen2.api.dao.JourneyDAO;
 import com.ipsen2.api.dao.UserDAO;
 import com.ipsen2.api.models.RegisterForm;
 import com.ipsen2.api.models.User;
@@ -24,7 +25,10 @@ public class UserService {
         return UserDAO.getUserById(userId);
     }
 
-    public static void deleteUser(User user) { UserDAO.deleteUser(user); }
+    public static void deleteUser(User user) {
+        JourneyService.deleteAll(user.getUserId());
+        UserDAO.deleteUser(user);
+    }
 
     public static boolean registerUser(String registerData) {
 
@@ -35,6 +39,7 @@ public class UserService {
                 || !registerForm.getEmail().contains("@")) {
             return false; // Foutieve registratie
         }
+
         User user = new User(UUID.randomUUID().toString(), registerForm);
         user.setSalt(BasicAuthenticationService.generateSalt());
         user.setPassword(BasicAuthenticationService.hashWithSalt(user.getPassword(), user.getSalt()));

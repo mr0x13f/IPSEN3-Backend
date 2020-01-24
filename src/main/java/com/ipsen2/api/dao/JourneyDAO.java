@@ -177,4 +177,18 @@ public class JourneyDAO {
         }
 
     }
+
+    public static String deleteAll(String creatorId) {
+        try{
+            String query = "DELETE FROM journeys WHERE creator_id = ?;";
+            PreparedStatement ps = DatabaseService.prepareQuery(query);
+            ps.setObject(1, UUID.fromString(creatorId));
+            DatabaseService.executeQuery(ps);
+            return "200 OK";
+        }
+        catch(java.sql.SQLException e) {
+            e.printStackTrace();
+            return "500 Server Error";
+        }
+    }
 }
