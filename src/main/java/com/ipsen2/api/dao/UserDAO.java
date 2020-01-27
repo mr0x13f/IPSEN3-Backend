@@ -1,5 +1,6 @@
 package com.ipsen2.api.dao;
 
+import com.fasterxml.jackson.databind.introspect.TypeResolutionContext;
 import com.ipsen2.api.models.RegisterForm;
 import com.ipsen2.api.models.User;
 import com.ipsen2.api.services.BasicAuthenticationService;
@@ -170,12 +171,15 @@ public class UserDAO {
      */
     public static void resetPassword(User user, String newPassword) {
         try {
-            user.setPassword(BasicAuthenticationService.hashWithSalt(user.getSalt(), newPassword));
+            user.setSalt(BasicAuthenticationService.generateSalt());
+            user.setPassword(BasicAuthenticationService.hashWithSalt(newPassword, user.getSalt()));
+
             PreparedStatement ps = DatabaseService.prepareQuery(
-                    "UPDATE users SET password = ? WHERE user_id = ?;");
+                    "UPDATE users SET password = ?, salt = ? WHERE user_id = ?;");
 
             ps.setString(1, user.getPassword());
-            ps.setObject(2, UUID.fromString(user.getUserId()));
+            ps.setString(2, user.getSalt());
+            ps.setObject(3, UUID.fromString(user.getUserId()));
 
             ResultSet rs = DatabaseService.executeQuery(ps);
 
