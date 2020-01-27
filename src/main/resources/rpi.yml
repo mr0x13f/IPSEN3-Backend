@@ -5,5 +5,5 @@
 server:
   applicationConnectors:
     - type: http
-      port: 8080
+      port: 6900
 
