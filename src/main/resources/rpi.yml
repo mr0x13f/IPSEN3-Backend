@@ -6,4 +6,7 @@ server:
   applicationConnectors:
     - type: http
       port: 6900
+  adminConnectors:
+    - type: http
+      port: 6901
 
