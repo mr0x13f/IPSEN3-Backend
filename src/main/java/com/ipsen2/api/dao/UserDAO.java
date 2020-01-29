@@ -49,7 +49,7 @@ public class UserDAO {
             while(rs.next()) {
                 resultCount++;
 
-                userId = rs.getString("user_id");
+                userId = rs.getObject("user_id").toString();
                 email = rs.getString("email");
                 name = rs.getString("name");
                 password = rs.getString("password");
@@ -97,7 +97,7 @@ public class UserDAO {
             while(rs.next()) {
                 resultCount++;
 
-                userId = rs.getString("user_id");
+                userId = rs.getObject("user_id").toString();
                 email = rs.getString("email");
                 name = rs.getString("name");
                 password = rs.getString("password");
